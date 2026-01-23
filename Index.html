@@ -289,6 +289,6 @@ function populateGallery() {
   });
   
   // Randomize vehicles
-  const shuffledVehicles = vehicles.sort(()=>0.5-Math.random()).slice(0,10);
+  const shuffledVehicles = vehicles.sort(()=>0.5-Math.random()).slice(0,10)
   shuffledVehicles.forEach(v=>{
     vg.innerHTML += `<div class="card"><img src="${v.image}" alt="${v.type}"><div class="card-content"><h3>${v.type}</h3></div></div
