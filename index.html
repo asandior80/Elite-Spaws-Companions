@@ -35,17 +35,55 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
 
 <!-- ===== HEADER ===== -->
 <header>
-<svg width="60" height="60" viewBox="0 0 64 64">
-  <circle cx="20" cy="20" r="6" fill="#0a3cff"/>
-  <circle cx="44" cy="20" r="6" fill="#0a3cff"/>
-  <circle cx="32" cy="44" r="6" fill="#0a3cff"/>
-  <line x1="20" y1="20" x2="32" y2="44" stroke="#0a3cff" stroke-width="3"/>
-  <line x1="44" y1="20" x2="32" y2="44" stroke="#0a3cff" stroke-width="3"/>
-</svg>
-<h1>Elite Paws & Companion</h1>
-<p>Professional Pet Sales & Courier Services | Established: 2019</p>
+  <svg class="logo-shiny" width="60" height="60" viewBox="0 0 64 64">
+    <defs>
+      <linearGradient id="shineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8">
+          <animate attributeName="offset" values="-1;1" dur="2s" repeatCount="indefinite"/>
+        </stop>
+        <stop offset="50%" stop-color="#0a3cff" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.8">
+          <animate attributeName="offset" values="-0.5;1.5" dur="2s" repeatCount="indefinite"/>
+        </stop>
+      </linearGradient>
+    </defs>
+
+    <circle cx="20" cy="20" r="6" fill="url(#shineGrad)"/>
+    <circle cx="44" cy="20" r="6" fill="url(#shineGrad)"/>
+    <circle cx="32" cy="44" r="6" fill="url(#shineGrad)"/>
+
+    <line x1="20" y1="20" x2="32" y2="44" stroke="url(#shineGrad)" stroke-width="3"/>
+    <line x1="44" y1="20" x2="32" y2="44" stroke="url(#shineGrad)" stroke-width="3"/>
+  </svg>
+  <h1>Elite Paws & Companion</h1>
+  <p>Professional Pet Sales & Courier Services | Established: 2019</p>
 </header>
 
+<style>
+/* ===== SELF-CONTAINED SHINY LOGO ANIMATION ===== */
+.logo-shiny {
+  animation: shinyRotateScale 3s infinite alternate ease-in-out;
+  transform-origin: 50% 50%;
+  display: inline-block;
+}
+
+@keyframes shinyRotateScale {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Optional header styling for full self-contained effect */
+header {
+  background: linear-gradient(to right,#0a3cff,#00c6ff);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 12px;
+}
+header h1 { margin-top: 10px; }
+header p { margin-top: 5px; font-size: 14px; }
+</style>
 <!-- ===== ABOUT ===== -->
 <section id="about" class="card">
 <h2>About Elite Paws & Companion</h2>
