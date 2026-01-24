@@ -99,7 +99,7 @@ Elite Paws & Companions
 <div id="chatBox">
   <header>AI Assistant 🧠</header>
   <div id="chatContent"></div>
-  <input type="text" id="userChat" placeholder="Ask a question">
+  <input type="text" id="userChat" placeholder="Ask a question" onkeypress="if(event.key==='Enter'){askAI()}">
 </div>
 </section>
 
@@ -119,16 +119,16 @@ Elite Paws & Companions
 <script>
 // ---------- Image Data ----------
 const puppyData = [
-  {img:"https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300", name:"Buddy", desc:"Loves to play fetch and cuddle."},
-  {img:"https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300", name:"Luna", desc:"Gentle and loves long naps."},
-  {img:"https://images.unsplash.com/photo-1558788353-f76d92427f16?crop=entropy&fit=crop&w=400&h=300", name:"Charlie", desc:"Adventurous and loves exploring."},
+  {img:"https://images.unsplash.com/photo-1601758123927-32d8c0b3c918", name:"Buddy", desc:"Loves to play fetch and cuddle."},
+  {img:"https://images.unsplash.com/photo-1574158622682-e40e69881006", name:"Luna", desc:"Gentle and loves long naps."},
+  {img:"https://images.unsplash.com/photo-1558788353-f76d92427f16", name:"Charlie", desc:"Adventurous and loves exploring."},
   {img:"https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e", name:"Max", desc:"Friendly and curious."},
   {img:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6", name:"Daisy", desc:"Loves cuddles and naps."},
   {img:"https://images.unsplash.com/photo-1603319672322-6a0f3b94bc5d", name:"Rocky", desc:"Energetic and playful."},
   {img:"https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e", name:"Molly", desc:"Sweet and gentle."},
   {img:"https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b", name:"Cooper", desc:"Smart and loving."},
-  {img:"https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300", name:"Bella", desc:"Friendly and curious."},
-  {img:"https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300", name:"Toby", desc:"Loves adventures."}
+  {img:"https://images.unsplash.com/photo-1601758123927-32d8c0b3c918", name:"Bella", desc:"Friendly and curious."},
+  {img:"https://images.unsplash.com/photo-1574158622682-e40e69881006", name:"Toby", desc:"Loves adventures."}
 ];
 const familyImages = [
   "https://images.unsplash.com/photo-1592194996308-7b43878e84a6",
