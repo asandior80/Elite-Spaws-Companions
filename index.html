@@ -2,373 +2,138 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elite Paws & Companion</title>
-<!-- Leaflet.js CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Leaflet MAP -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
 <style>
-/* ===== GENERAL STYLES ===== */
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family: Arial, sans-serif; background:#f4f7fb; color:#222; line-height:1.6; scroll-behavior:smooth;}
-h1,h2,h3 {color:#0a3cff;}
-a {color:#0a3cff; text-decoration:none;}
-section {padding:60px 20px; max-width:1200px; margin:auto;}
-.card {background:white; padding:20px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); margin-bottom:40px;}
-button {background:#0a3cff; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; margin-top:10px;}
-input,textarea {width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc;}
-img {width:100%; border-radius:12px;}
-.gallery {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+body{margin:0;font-family:Arial;background:#f4f6f9}
+header{background:linear-gradient(90deg,#0a3cff,#00c6ff);color:#fff;padding:30px;text-align:center}
+section{padding:40px}
+h2{text-align:center;margin-bottom:20px}
 
-/* ===== HEADER & LOGO ===== */
-header {
-  background: linear-gradient(to right,#0a3cff,#00c6ff);
-  color: white;
-  padding: 40px 20px;
-  text-align: center;
-  border-radius: 12px;
+/* CAROUSEL */
+.carousel{display:flex;overflow-x:auto;gap:20px}
+.card{background:#fff;border-radius:10px;min-width:300px;box-shadow:0 5px 15px rgba(0,0,0,.15)}
+.card img{width:100%;height:220px;object-fit:cover;border-radius:10px 10px 0 0}
+.card .text{padding:15px}
+
+/* MAP */
+#map{height:400px;border-radius:10px}
+
+/* TRACKING */
+input,button{padding:10px;margin:5px;width:100%;max-width:400px}
+button{background:#0a3cff;color:#fff;border:none;border-radius:5px}
+
+/* FLOATING BUTTONS */
+.float{
+position:fixed;
+right:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
+z-index:9999;
 }
-.logo-shiny {
-  animation: shinyRotateScale 3s infinite alternate ease-in-out;
-  transform-origin: 50% 50%;
-  display: inline-block;
+.float a{
+background:#25D366;
+color:white;
+padding:12px;
+border-radius:50%;
+text-align:center;
+font-size:20px;
+text-decoration:none;
 }
-@keyframes shinyRotateScale {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.2); }
-  100% { transform: rotate(360deg) scale(1); }
-}
-header h1 { margin-top: 10px; }
-header p { margin-top: 5px; font-size: 14px; }
-
-/* ===== NAVIGATION BAR ===== */
-nav {
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  background:#e3f2ff;
-  padding:15px 0;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-nav a {font-weight:bold;}
-
-/* ===== CAROUSELS ===== */
-.carousel-container {position:relative; overflow:hidden; border-radius:12px;}
-.carousel-slide {display:flex; transition: transform 0.5s ease;}
-.carousel-slide .card {min-width:250px; margin-right:20px;}
-.carousel-btn {position:absolute; top:50%; transform:translateY(-50%); background:#0a3cff; color:white; border:none; padding:10px; border-radius:50%; cursor:pointer;}
-.carousel-btn.prev {left:10px;}
-.carousel-btn.next {right:10px;}
-
-/* ===== TRACKING MAP ===== */
-.map {background:#dbe9ff; padding:20px; border-radius:10px; margin-top:20px; height:400px;}
-.tracking-entry {margin-bottom:20px;}
-.tracking-list {margin-top:20px;}
-
-/* ===== FLOATING BUTTONS ===== */
-.floating-btn {position:fixed; right:20px; padding:15px; border-radius:50%; color:white; font-size:20px; text-align:center; cursor:pointer; z-index:100;}
-#btn-whatsapp {bottom:20px; background:#25d366;}
-#btn-email {bottom:90px; background:#0072c6;}
-#btn-ai {bottom:160px; background:#ff9800;}
-#btn-scroll {bottom:230px; background:#0a3cff;}
-.ai-chat-box {position:fixed; bottom:300px; right:20px; width:300px; max-height:400px; background:white; border:2px solid #0a3cff; border-radius:12px; overflow-y:auto; padding:10px; display:none; z-index:200;}
-.ai-chat-box input {width:100%; padding:8px; margin-top:10px; border-radius:6px; border:1px solid #ccc;}
-.ai-message {background:#0a3cff; color:white; padding:8px 10px; border-radius:8px; margin:5px 0;}
-
-/* ===== FOOTER ===== */
-footer {background:#111; color:white; text-align:center; padding:30px;}
+.email{background:#007bff}
+.ai{background:#111}
+.up{background:#444}
 </style>
 </head>
+
 <body>
 
-<!-- ===== HEADER ===== -->
 <header>
-  <svg class="logo-shiny" width="60" height="60" viewBox="0 0 64 64">
-    <defs>
-      <linearGradient id="shineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8">
-          <animate attributeName="offset" values="-1;1" dur="2s" repeatCount="indefinite"/>
-        </stop>
-        <stop offset="50%" stop-color="#0a3cff" stop-opacity="1"/>
-        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.8">
-          <animate attributeName="offset" values="-0.5;1.5" dur="2s" repeatCount="indefinite"/>
-        </stop>
-      </linearGradient>
-    </defs>
-    <circle cx="20" cy="20" r="6" fill="url(#shineGrad)"/>
-    <circle cx="44" cy="20" r="6" fill="url(#shineGrad)"/>
-    <circle cx="32" cy="44" r="6" fill="url(#shineGrad)"/>
-    <line x1="20" y1="20" x2="32" y2="44" stroke="url(#shineGrad)" stroke-width="3"/>
-    <line x1="44" y1="20" x2="32" y2="44" stroke="url(#shineGrad)" stroke-width="3"/>
-  </svg>
-  <h1>Elite Paws & Companion</h1>
-  <p>Professional Pet Sales & Courier Services | Established: 2019</p>
+<h1>Elite Paws & Companion</h1>
+<p>Professional Pet Sales & Secure Delivery — Established 2019</p>
 </header>
 
-<!-- ===== NAVIGATION ===== -->
-<nav>
-  <a href="#about">About</a>
-  <a href="#puppies">Puppies</a>
-  <a href="#families">Families</a>
-  <a href="#vehicles">Delivery</a>
-  <a href="#tracking">Tracking</a>
-  <a href="#faq">FAQs</a>
-  <a href="#blog">Blog/Reviews</a>
-  <a href="#contact">Contact/AI</a>
-</nav>
-
-<!-- ===== ABOUT SECTION ===== -->
-<section id="about" class="card">
-<h2>About Elite Paws & Companion</h2>
-<p>Elite Paws & Companion has been serving pet lovers for over 5 years. We specialize in connecting families with healthy, happy puppies, providing delivery services with utmost care, and ensuring a safe, professional pet handling experience. Our mission is to make pet ownership accessible, trustworthy, and joyful. Each of our puppies comes with a full care history and personalized attention to ensure a smooth transition to their new family.</p>
-<img src="https://images.unsplash.com/photo-1601979031925-424e53b6caaa" alt="Happy Puppy" style="margin-top:20px;">
-<p>We also provide comprehensive delivery services using professional couriers, ensuring your new companion reaches you safely. Our team carefully monitors each step of the process, offering real-time tracking for peace of mind. At Elite Paws & Companion, your pet’s happiness is our priority.</p>
+<!-- PUPPIES -->
+<section>
+<h2>Puppies & Dogs</h2>
+<div class="carousel" id="puppyCarousel"></div>
 </section>
 
-<!-- ===== PUPPIES CAROUSEL ===== -->
-<section id="puppies" class="card">
-<h2>Puppies</h2>
-<div class="carousel-container" id="puppiesCarousel">
-  <div class="carousel-slide" id="puppiesSlide"></div>
-  <button class="carousel-btn prev" onclick="prevSlide('puppies')">&#10094;</button>
-  <button class="carousel-btn next" onclick="nextSlide('puppies')">&#10095;</button>
-</div>
+<!-- TRACKING -->
+<section>
+<h2>Tracking</h2>
+<input id="from" placeholder="Your Location">
+<input id="to" placeholder="Client Location">
+<button onclick="track()">Generate Tracking</button>
+<p id="code"></p>
+<div id="map"></div>
 </section>
 
-<!-- ===== FAMILIES CAROUSEL ===== -->
-<section id="families" class="card">
-<h2>Happy Families</h2>
-<div class="carousel-container" id="familiesCarousel">
-  <div class="carousel-slide" id="familiesSlide"></div>
-  <button class="carousel-btn prev" onclick="prevSlide('families')">&#10094;</button>
-  <button class="carousel-btn next" onclick="nextSlide('families')">&#10095;</button>
-</div>
+<!-- AI CHAT -->
+<section>
+<h2>AI Assistant</h2>
+<input id="userQ" placeholder="Ask a question">
+<button onclick="ai()">Ask</button>
+<p id="aiA"></p>
 </section>
 
-<!-- ===== DELIVERY VEHICLES CAROUSEL ===== -->
-<section id="vehicles" class="card">
-<h2>Delivery Vehicles</h2>
-<div class="carousel-container" id="vehiclesCarousel">
-  <div class="carousel-slide" id="vehiclesSlide"></div>
-  <button class="carousel-btn prev" onclick="prevSlide('vehicles')">&#10094;</button>
-  <button class="carousel-btn next" onclick="nextSlide('vehicles')">&#10095;</button>
-</div>
-</section>
-
-<!-- ===== TRACKING SECTION ===== -->
-<section id="tracking" class="card">
-<h2>Track Your Delivery / Generate Tracking Code</h2>
-
-<div class="tracking-entry">
-<label>Seller / Your Location:</label>
-<input type="text" id="sellerLocation" placeholder="Enter your address">
-<label>Client Name:</label>
-<input type="text" id="clientName" placeholder="Client full name">
-<label>Client Location:</label>
-<input type="text" id="clientLocation" placeholder="Client address / city">
-<label>Order Details:</label>
-<input type="text" id="orderDetails" placeholder="Description of the order">
-<button onclick="addTracking()">Generate Tracking Code</button>
+<!-- FLOATING BUTTONS -->
+<div class="float" style="top:30%">
+<a href="https://wa.me/13659073536" title="WhatsApp">💬</a>
+<a href="mailto:nickpatrick887@gmail.com" class="email">✉️</a>
+<a href="#top" class="up">⬆️</a>
 </div>
 
-<div class="tracking-list" id="trackingList"></div>
-
-<div id="map" class="map"></div>
-<p id="mapInfo"></p>
-</section>
-
-<!-- ===== FAQs SECTION ===== -->
-<section id="faq" class="card">
-<h2>FAQs</h2>
-<p><strong>Q1: How do you ensure puppy health?</strong></p>
-<p>A: Each puppy is examined by a certified veterinarian, receives vaccinations, and is carefully monitored from birth.</p>
-<p><strong>Q2: Can I track my order in real-time?</strong></p>
-<p>A: Yes! Once you generate a tracking code, the map will show your delivery in real-time with estimated travel hours.</p>
-<p><strong>Q3: How do you handle deliveries?</strong></p>
-<p>A: We use professional couriers with experience in pet handling. Every step is monitored for safety and comfort.</p>
-</section>
-
-<!-- ===== BLOG / REVIEWS SECTION ===== -->
-<section id="blog" class="card">
-<h2>Blog & Reviews</h2>
-<div class="gallery">
-<div class="card"><img src="https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c" alt="Review1"><p><strong>Review:</strong> Luna arrived healthy and happy. Amazing service with great communication.</p></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1525253086316-d0c936c814f8" alt="Review2"><p><strong>Review:</strong> Max was playful and friendly. Delivery was smooth and tracked easily.</p></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86" alt="Review3"><p><strong>Blog:</strong> Tips for first-time puppy owners, including nutrition, toys, and care routines.</p></div>
-</div>
-</section>
-
-<!-- ===== CONTACT / AI SECTION ===== -->
-<section id="contact" class="card">
-<h2>Contact / AI Chat</h2>
-<p>Email: <a href="mailto:nickpatrick887@gmail.com">nickpatrick887@gmail.com</a></p>
-<p>WhatsApp: <a href="https://wa.me/13659073536" target="_blank">+1 (365) 907-3536</a></p>
-
-<div class="ai-chat-box" id="aiChatBox">
-  <div id="aiMessages"></div>
-  <input type="text" id="aiInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter'){sendAIMessage()}">
-</div>
-</section>
-
-<!-- ===== FLOATING BUTTONS ===== -->
-<div class="floating-btn" id="btn-whatsapp" onclick="window.open('https://wa.me/13659073536','_blank')">
-  <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" style="width:24px; vertical-align:middle;">
-</div>
-<div class="floating-btn" id="btn-email" onclick="window.location.href='mailto:nickpatrick887@gmail.com'">📧</div>
-<div class="floating-btn" id="btn-ai" onclick="toggleAI()">🤖</div>
-<div class="floating-btn" id="btn-scroll" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️</div>
-
-<footer>
-<p>© Elite Paws & Companion | Trusted Pet Handling & Delivery</p>
-</footer>
-
-<!-- Leaflet.js JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-// ===== CAROUSEL DATA =====
-
-const puppies = [
-  {
-    url: "https://images.unsplash.com/photo-1601758123927-1961a8c6c94b",
-    name: "Oliver",
-    desc: "Oliver is a calm and affectionate companion with a gentle personality. He enjoys quiet moments, adapts easily to new environments, and forms strong bonds with caring families."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993",
-    name: "Bella",
-    desc: "Bella is playful and curious, always eager to explore her surroundings. Her cheerful energy brings warmth to any home, making her an ideal lifelong companion."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1558788353-f76d92427f16",
-    name: "Max",
-    desc: "Max is confident and alert, known for his loyalty and intelligence. He enjoys interactive play and thrives in homes that value companionship and routine."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1507146426996-ef05306b995a",
-    name: "Luna",
-    desc: "Luna has a calm and soothing presence. She is affectionate, observant, and enjoys spending time close to her humans, offering comfort and companionship."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
-    name: "Rocky",
-    desc: "Rocky is energetic and confident, with a strong sense of curiosity. He enjoys outdoor activities and is best suited for families who enjoy an active lifestyle."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb",
-    name: "Daisy",
-    desc: "Daisy is gentle and friendly, known for her affectionate behavior. She easily connects with people and enjoys calm environments filled with love and care."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1601979031925-424e53b6caaa",
-    name: "Charlie",
-    desc: "Charlie is intelligent and playful, always alert and responsive. He enjoys learning new routines and adapts quickly to family life."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b",
-    name: "Milo",
-    desc: "Milo is affectionate and curious, with a calm temperament. He enjoys companionship and forms strong emotional connections with those around him."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80",
-    name: "Ruby",
-    desc: "Ruby is gentle and attentive, known for her calm presence. She enjoys peaceful environments and responds well to affection and care."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8",
-    name: "Leo",
-    desc: "Leo is confident and warm-hearted, displaying loyalty and curiosity. He enjoys both playtime and rest, making him a balanced and loving companion."
-  }
-];
-// ===== FAMILIES CAROUSEL: People with Dogs & Reviews =====
-const families = [
-  {
-    url:"https://images.pexels.com/photos/4587994/pexels-photo-4587994.jpeg",
-    desc:"The Ramirez family welcomes their new companion, Buddy. The joy on their faces highlights what Elite Paws & Companion is all about — healthy, happy pets in loving homes."
-  },
-  {
-    url:"https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg",
-    desc:"The Johnsons take their dog Luna for a walk in the park. A lifetime of memories begins with a safe and caring introduction."
-  },
-  {
-    url:"https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg",
-    desc:"A young couple and their energetic pup Max explore their neighborhood. Max’s tail never stopped wagging after arrival."
-  },
-  {
-    url:"https://images.pexels.com/photos/4587999/pexels-photo-4587999.jpeg",
-    desc:"Emma and Rex, the dynamic duo. Their bond is pure joy — and Elite Paws & Companion is proud to have made it possible."
-  },
-  {
-    url:"https://images.pexels.com/photos/774866/pexels-photo-774866.jpeg",
-    desc:"A happy family portrait with their rescue dog Daisy. Their story inspires other pet lovers to adopt and cherish every moment."
-  },
-  {
-    url:"https://images.pexels.com/photos/4588001/pexels-photo-4588001.jpeg",
-    desc:"The Nguyen family and their new companion, Zoro. A beautiful beginning with tailored care and professional delivery."
-  },
-  {
-    url:"https://images.pexels.com/photos/4588007/pexels-photo-4588007.jpeg",
-    desc:"Young siblings meet their puppy Shadow for the first time. An unforgettable memory and a lifetime of joy ahead."
-  },
-  {
-    url:"https://images.pexels.com/photos/1798708/pexels-photo-1798708.jpeg",
-    desc:"A stroll in the park with new best friend Leo. Every delivery we make is a new story of happiness."
-  },
-  {
-    url:"https://images.pexels.com/photos/4588011/pexels-photo-4588011.jpeg",
-    desc:"Smiles all around as Nova joins the family. Nothing beats the warmth of a loving home."
-  },
-  {
-    url:"https://images.pexels.com/photos/4588009/pexels-photo-4588009.jpeg",
-    desc:"A proud moment — the Smiths cuddling their newest member. Expert care from start to finish."
-  }
-];
+<!-- MAP SCRIPT -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-// ===== DELIVERY VEHICLES CAROUSEL DATA =====
-
-const deliveryVehicles = [
-  {
-    url: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7",
-    desc: "A modern delivery truck designed for secure and organized transport. This vehicle represents reliability, efficiency, and professional handling of companion deliveries."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1590490360182-c33d57733427",
-    desc: "A plain cargo van built for long-distance logistics. Climate-controlled interiors ensure comfort and safety throughout the journey."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1586864387789-628af9feed72",
-    desc: "A dependable delivery vehicle navigating city routes smoothly, ensuring timely arrivals while maintaining calm and controlled transport conditions."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1614018453562-77f6180ce036",
-    desc: "This professional transport van is equipped for organized travel, offering a stable and secure environment during transit."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
-    desc: "A long-wheelbase delivery truck capable of handling extended routes while prioritizing safety and efficiency."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
-    desc: "A logistics-ready transport van used for professional deliveries, representing precision, care, and responsibility."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1581091870622-1e7e4804c8b0",
-    desc: "This delivery truck reflects Elite Paws & Companion’s commitment to reliable and carefully managed transportation."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1601918774946-25832a4be0d6",
-    desc: "A clean, well-maintained cargo vehicle prepared for efficient transport across regional routes."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1605745341112-85968b19335b",
-    desc: "A secure delivery van stationed at dispatch, ready for scheduled and organized companion transportation."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1570129477492-4090c3c96fb8",
-    desc: "A professional logistics truck symbolizing trust, punctuality, and structured delivery operations."
-  }
+// DATA
+const puppies=[
+{img:"https://images.unsplash.com/photo-1601758123927-1961a8c6c94b",name:"Oliver",desc:"Calm affectionate companion ideal for families."},
+{img:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993",name:"Bella",desc:"Playful joyful spirit full of energy."}
 ];
 
-// ===== END DELIVERY VEHICLES DATA =====
+// RENDER
+const box=document.getElementById("puppyCarousel");
+puppies.forEach(p=>{
+box.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<div class="text">
+<h3>${p.name}</h3>
+<p>${p.desc}</p>
+</div></div>`;
+});
+
+// MAP
+const map=L.map("map").setView([6.5244,3.3792],5);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+let line;
+
+// TRACKING
+function track(){
+const code="EPC-"+Math.floor(Math.random()*99999);
+document.getElementById("code").innerText="Tracking Code: "+code;
+if(line)map.removeLayer(line);
+line=L.polyline([[6.5244,3.3792],[9.0765,7.3986]],{color:"blue"}).addTo(map);
+map.fitBounds(line.getBounds());
+}
+
+// AI
+function ai(){
+const q=document.getElementById("userQ").value.toLowerCase();
+let a="Our team will assist you shortly.";
+if(q.includes("price"))a="Prices depend on delivery and care services.";
+if(q.includes("delivery"))a="We provide secure nationwide delivery.";
+document.getElementById("aiA").innerText=a;
+}
 </script>
+
+</body>
+</html>
