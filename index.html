@@ -225,9 +225,80 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
 
 <!-- Leaflet.js JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
+<script>
 // ===== CAROUSEL DATA =====
-const puppies=[{name:"Luna",desc:"Calm and affectionate puppy, loves cuddles and playtime.",url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},{name:"Max",desc:"Energetic and confident puppy, enjoys outdoor activities.",url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{name:"Bella",desc:"Curious and playful, great for families.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},{name:"Rocky",desc:"Strong-spirited and loyal puppy, ideal companion.",url:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b"},{name:"Milo",desc:"Alert and friendly, enjoys learning tricks.",url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},{name:"Daisy",desc:"Gentle and nurturing puppy, loves children.",url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},{name:"Leo",desc:"Confident and patient, enjoys walks and exploration.",url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},{name:"Zara",desc:"Graceful and attentive, adapts well to new environments.",url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},{name:"Shadow",desc:"Calm and observant, perfect indoor companion.",url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},{name:"Nova",desc:"Balanced and family-ready, very friendly.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"}];
+
+const puppies = [
+  {
+    url: "https://images.unsplash.com/photo-1601758123927-1961a8c6c94b",
+    name: "Oliver",
+    desc: "Oliver is a calm and affectionate companion with a gentle personality. He enjoys quiet moments, adapts easily to new environments, and forms strong bonds with caring families."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993",
+    name: "Bella",
+    desc: "Bella is playful and curious, always eager to explore her surroundings. Her cheerful energy brings warmth to any home, making her an ideal lifelong companion."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1558788353-f76d92427f16",
+    name: "Max",
+    desc: "Max is confident and alert, known for his loyalty and intelligence. He enjoys interactive play and thrives in homes that value companionship and routine."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1507146426996-ef05306b995a",
+    name: "Luna",
+    desc: "Luna has a calm and soothing presence. She is affectionate, observant, and enjoys spending time close to her humans, offering comfort and companionship."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
+    name: "Rocky",
+    desc: "Rocky is energetic and confident, with a strong sense of curiosity. He enjoys outdoor activities and is best suited for families who enjoy an active lifestyle."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb",
+    name: "Daisy",
+    desc: "Daisy is gentle and friendly, known for her affectionate behavior. She easily connects with people and enjoys calm environments filled with love and care."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1601979031925-424e53b6caaa",
+    name: "Charlie",
+    desc: "Charlie is intelligent and playful, always alert and responsive. He enjoys learning new routines and adapts quickly to family life."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b",
+    name: "Milo",
+    desc: "Milo is affectionate and curious, with a calm temperament. He enjoys companionship and forms strong emotional connections with those around him."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80",
+    name: "Ruby",
+    desc: "Ruby is gentle and attentive, known for her calm presence. She enjoys peaceful environments and responds well to affection and care."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8",
+    name: "Leo",
+    desc: "Leo is confident and warm-hearted, displaying loyalty and curiosity. He enjoys both playtime and rest, making him a balanced and loving companion."
+  }
+];
+
+// ===== END CAROUSEL DATA =====
+<script>
+// ===== CAROUSEL DATA =====
+
+const puppies = [
+  {
+    url: "https://images.unsplash.com/photo-1601758123927-1961a8c6c94b",
+    name: "Oliver",
+    desc: "Oliver is a gentle, calm companion known for his affectionate nature and playful curiosity. He adapts easily to new environments and enjoys human attention."
+  },
+  {
+    url: "https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993",
+    name: "Bella",
+    desc: "Bella is energetic and joyful, always eager to explore. She forms strong bonds with families and thrives in loving environments."
+  }
+];
+
+// ===== END CAROUSEL DATA =====
 // ===== FAMILIES CAROUSEL: People with Dogs & Reviews =====
 const families = [
   {
@@ -299,6 +370,22 @@ const vehicles = [
     desc:"A busy truck on the move, representing our dynamic delivery network across town and beyond."
   },
   {
+    url:"https://pixabay.com/get/gfd2bceee4adf5c9af462714a1e2ef2c617a5d075e1400e6438ad183c19103f9085c3857f78be4e0713f73a5ef4e98a6f_1280.jpg",
+    desc:"Reliable transportation van with cargo doors open — ready for secure loading and pet comfort."
+  },
+  {
+    url:"https://pixabay.com/get/gd2c1bcda6c3668d78f29bbee4bbe7b7e5cee7d7f38e61a6999a0ee9e2af0156f7c4c901314b96e079d43b51ba2b9f2629_1280.jpg",
+    desc:"Delivery van cruising through city streets with speed and precision."
+  },
+  {
+    url:"https://pixabay.com/get/g4db370a95a33d0bc5afd69239b5f9b67fab88fca8e8e173ce0ab2c26b0531bf723f44fac99b20fceb3b15798fab58a5e_1280.jpg",
+    desc:"Fleet vehicle ready at dawn — a reliable start to another day of deliveries."
+  },
+  {
+    url:"https://pixabay.com/get/g576a9d634c097a0d71aad30dbb4c4aa8f0c4d2eebbf244c21f1a28bb1d8e723f2a2ed907d1470f487bd2f9df80117250a_1280.jpg",
+    desc:"Large cargo truck symbolizing our ability to handle orders of all sizes."
+  }
+];
     url:"https://pixabay.com/get/gfd2bceee4adf5c9af462714a1e2ef2c617a5d075e1400e6438ad183c19103f9085c3857f78be4e0713f73a5ef4e98a6f_1280.jpg",
     desc:"Reliable transportation van with cargo doors open — ready for secure loading and pet comfort."
   },
