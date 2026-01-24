@@ -169,8 +169,101 @@ function populateCarousel(containerId, images, data=null){
   });
 }
 
+// ---------- Tracking System ----------
+const sampleTrackingData = {
+  "TRK-983472CM": {
+    sender: {name:"Elite Paws", company:"Elite Paws & Companions", origin:"Douala, CM"},
+    receiver: {name:"John Doe", city:"Yaoundé, CM", contact:"+237 6XX XXX XXX"},
+    package: {desc:"Doberman Puppy", quantity:1, weight:"5kg", type:"Crate"},
+    status: "Out for Delivery",
+    estDelivery:"26 Jan 2026",
+    method:"Express",
+    payment:"Paid",
+    notes:"Handle with care",
+    history:[
+      "22 Jan 2026 – Order received – Douala, CM",
+      "23 Jan 2026 – In transit – Yaoundé, CM",
+      "24 Jan 2026 – Arrived at destination hub",
+      "25 Jan 2026 – Out for delivery"
+    ],
+    route:{dispatch:[4.051,9.767], client:[3.848,11.502]}
+  }
+};
+
+function showTracking(){
+  const code = document.getElementById("trackingCodeInput").value.trim();
+  if(!sampleTrackingData[code]){
+    alert("Tracking code not found");
+    return;
+  }
+  const data = sampleTrackingData[code];
+  document.getElementById("trkNumber").innerText = code;
+  document.getElementById("senderInfo").innerText = `${data.sender.name}, ${data.sender.company}, ${data.sender.origin}`;
+  document.getElementById("receiverInfo").innerText = `${data.receiver.name}, ${data.receiver.city}, ${data.receiver.contact}`;
+  document.getElementById("packageInfo").innerText = `${data.package.desc}, Quantity: ${data.package.quantity}, Weight: ${data.package.weight}, Type: ${data.package.type}`;
+  document.getElementById("statusInfo").innerText = data.status;
+  document.getElementById("estDelivery").innerText = data.estDelivery;
+  document.getElementById("deliveryMethod").innerText = data.method;
+  document.getElementById("paymentStatus").innerText = data.payment;
+  document.getElementById("notes").innerText = data.notes;
+
+  const historyList = document.getElementById("trackingHistory");
+  historyList.innerHTML = "";
+  data.history.forEach(event=>{
+    let li=document.createElement("li");
+    li.innerText = event;
+    historyList.appendChild(li);
+  });
+
+  document.getElementById("trackingDetails").style.display="block";
+
+  // Map
+  if(window.trackingMap) window.trackingMap.remove();
+  window.trackingMap = L.map('map').setView(data.route.dispatch, 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'&copy; OpenStreetMap contributors'}).addTo(window.trackingMap);
+
+  L.Routing.control({
+    waypoints:[
+      L.latLng(data.route.dispatch[0], data.route.dispatch[1]),
+      L.latLng(data.route.client[0], data.route.client[1])
+    ],
+    lineOptions:{styles:[{color:'blue',weight:5}]},
+    routeWhileDragging:false,
+    show:false
+  }).addTo(window.trackingMap);
+}
+
+// ---------- AI Chat ----------
+function toggleChat(){
+  const box=document.getElementById("chatBox");
+  box.style.display = box.style.display==="none"?"block":"none";
+}
+function askAI(){
+  const input = document.getElementById("userChat");
+  const question = input.value.trim();
+  if(!question) return;
+  const chatContent = document.getElementById("chatContent");
+  const answer = generateAIAnswer(question);
+  chatContent.innerHTML += `<p><b>You:</b> ${question}</p><p><b>AI:</b> ${answer}</p>`;
+  chatContent.scrollTop = chatContent.scrollHeight;
+  input.value="";
+}
+function generateAIAnswer(q){
+  // Basic consistent responses
+  q=q.toLowerCase();
+  if(q.includes("price") || q.includes("cost")) return "Our puppies have competitive prices. Please contact us for details.";
+  if(q.includes("delivery") || q.includes("ship")) return "We deliver safely to your location with tracking.";
+  if(q.includes("age") || q.includes("puppy")) return "All puppies are healthy and properly vaccinated.";
+  return "Thank you for your message! We are happy to help you with your pets and services.";
+}
+
+// ---------- Scroll Top Button ----------
+function scrollToTop(){window.scrollTo({top:0, behavior:"smooth"});}
+
+// ---------- Initialize Carousels on load ----------
 window.onload=function(){
   populateCarousel("puppyCarousel", puppyData.map(d=>d.img), puppyData);
   populateCarousel("familiesCarousel", familyImages);
   populateCarousel("vehiclesCarousel", vehicleImages);
 };
+</script>
