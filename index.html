@@ -17,18 +17,19 @@ h2{margin-bottom:15px;color:#ff8c00;}
 .carousel, .families, .vehicles{display:flex;overflow-x:auto;gap:15px;padding-bottom:15px;scroll-behavior:smooth;}
 .carousel img, .families img, .vehicles img{height:200px;border-radius:10px;flex-shrink:0;}
 .description{background:#fff;padding:10px;border-radius:10px;margin-top:5px;min-width:200px;}
-.floating{position:fixed;bottom:20px;width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:1.5em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
-#whatsapp{right:20px;background:#25D366;}
-#email{right:80px;background:#0072C6;}
-#chatBtn{right:140px;background:#FF8C00;}
-#topBtn{right:200px;background:#555;}
-#chatBox{display:none;position:fixed;bottom:80px;right:140px;width:320px;height:400px;background:#fff;border:2px solid #FF8C00;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
+.floating{position:fixed;right:20px;width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:1.5em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+#topBtn{bottom:20px;background:#555;}
+#whatsapp{bottom:80px;background:#25D366;}
+#email{bottom:140px;background:#0072C6;}
+#chatBtn{bottom:200px;background:#FF8C00;}
+#chatBox{display:none;position:fixed;bottom:260px;right:20px;width:320px;height:400px;background:#fff;border:2px solid #FF8C00;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
 #chatBox header{background:#FF8C00;color:#fff;padding:10px;text-align:center;font-weight:bold;}
 #chatContent{padding:10px;height:300px;overflow-y:auto;}
 #userChat{width:100%;box-sizing:border-box;padding:10px;border:none;border-top:1px solid #ccc;}
 input:focus{outline:none;}
 button{padding:10px 15px;margin-top:10px;border:none;background:#ff8c00;color:#fff;border-radius:5px;cursor:pointer;}
 button:hover{background:#e57c00;}
+input, select{padding:5px;margin:5px;border-radius:5px;border:1px solid #ccc;}
 </style>
 </head>
 <body>
@@ -49,49 +50,46 @@ Elite Paws & Companions
 <!-- Puppies Section -->
 <section id="puppies">
 <h2>Puppies</h2>
-<div class="carousel" id="puppyCarousel">
-  <div class="puppyItem"><img src="https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300"><div class="description" id="puppyDesc1"></div></div>
-  <div class="puppyItem"><img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300"><div class="description" id="puppyDesc2"></div></div>
-  <div class="puppyItem"><img src="https://images.unsplash.com/photo-1558788353-f76d92427f16?crop=entropy&fit=crop&w=400&h=300"><div class="description" id="puppyDesc3"></div></div>
-</div>
+<div class="carousel" id="puppyCarousel"></div>
 </section>
 
-<!-- Families & Reviews Section -->
+<!-- Families Section -->
 <section id="families">
 <h2>Families & Reviews</h2>
-<div class="families" id="familiesCarousel">
-  <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6">
-  <img src="https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e">
-  <img src="https://images.unsplash.com/photo-1603319672322-6a0f3b94bc5d">
-</div>
+<div class="families" id="familiesCarousel"></div>
 </section>
 
-<!-- Delivery Vehicles Section -->
+<!-- Vehicles Section -->
 <section id="vehicles">
 <h2>Delivery Vehicles</h2>
-<div class="vehicles" id="vehiclesCarousel">
-  <img src="https://images.unsplash.com/photo-1558980664-10e71726d9c8">
-  <img src="https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b">
-</div>
+<div class="vehicles" id="vehiclesCarousel"></div>
 </section>
 
-<!-- Tracking + Map Section -->
+<!-- Tracking Section -->
 <section id="tracking">
-<h2>Track Your Puppy</h2>
-<input type="text" id="dispatchLat" placeholder="Dispatch Latitude">
-<input type="text" id="dispatchLon" placeholder="Dispatch Longitude">
-<input type="text" id="clientLat" placeholder="Client Latitude">
-<input type="text" id="clientLon" placeholder="Client Longitude">
-<input type="text" id="trackingCode" placeholder="Tracking Code">
-<button onclick="createTracking()">Create Tracking</button>
-<p id="trackResult"></p>
-<div id="map" style="width:100%;height:400px;"></div>
+<h2>Track Your Package</h2>
+<input type="text" id="trackingCodeInput" placeholder="Enter Tracking Code">
+<button onclick="showTracking()">Track</button>
+
+<div id="trackingDetails" style="display:none; margin-top:20px; background:#fff; padding:15px; border-radius:10px;">
+  <h3>Tracking Number: <span id="trkNumber"></span></h3>
+  <p><b>Sender:</b> <span id="senderInfo"></span></p>
+  <p><b>Receiver:</b> <span id="receiverInfo"></span></p>
+  <p><b>Package:</b> <span id="packageInfo"></span></p>
+  <p><b>Status:</b> <span id="statusInfo"></span></p>
+  <p><b>Estimated Delivery:</b> <span id="estDelivery"></span></p>
+  <p><b>Delivery Method:</b> <span id="deliveryMethod"></span></p>
+  <p><b>Payment Status:</b> <span id="paymentStatus"></span></p>
+  <p><b>Additional Notes:</b> <span id="notes"></span></p>
+  <h4>Tracking History</h4>
+  <ul id="trackingHistory"></ul>
+  <div id="map" style="width:100%; height:400px; margin-top:10px;"></div>
+</div>
 </section>
 
 <!-- Contact / AI Chat Section -->
 <section id="contact">
 <h2>Contact & AI Chat</h2>
-<p>WhatsApp or Email anytime for questions:</p>
 <p>WhatsApp: +1 (365) 907-3536</p>
 <p>Email: nickpatrick887@gmail.com</p>
 
@@ -103,6 +101,7 @@ Elite Paws & Companions
 </section>
 
 <!-- Floating Buttons -->
+<div id="topBtn" class="floating" onclick="scrollToTop()">👍</div>
 <div id="whatsapp" class="floating" onclick="window.open('https://wa.me/13659073536','_blank')">
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="28">
 </div>
@@ -110,43 +109,80 @@ Elite Paws & Companions
   <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email" width="28">
 </div>
 <div id="chatBtn" class="floating" onclick="toggleChat()">🧠</div>
-<div id="topBtn" class="floating" onclick="scrollToTop()">👍</div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 <script>
-// Puppy Rotating Names & Descriptions
-const puppyData=[
-  {name:"Buddy","desc":"Buddy loves to play fetch and cuddle. Perfect for active families."},
-  {name:"Luna","desc":"Luna is gentle and loves long naps in sunny spots."},
-  {name:"Charlie","desc":"Charlie is adventurous and loves exploring."}
+// ----------------- Image Data -----------------
+const puppyData = [
+  {img:"https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300", name:"Buddy", desc:"Loves to play fetch and cuddle."},
+  {img:"https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300", name:"Luna", desc:"Gentle and loves long naps."},
+  {img:"https://images.unsplash.com/photo-1558788353-f76d92427f16?crop=entropy&fit=crop&w=400&h=300", name:"Charlie", desc:"Adventurous and loves exploring."},
+  {img:"https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e", name:"Max", desc:"Friendly and curious."},
+  {img:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6", name:"Daisy", desc:"Loves cuddles and naps."},
+  {img:"https://images.unsplash.com/photo-1603319672322-6a0f3b94bc5d", name:"Rocky", desc:"Energetic and playful."},
+  {img:"https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e", name:"Molly", desc:"Sweet and gentle."},
+  {img:"https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b", name:"Cooper", desc:"Smart and loving."},
+  {img:"https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300", name:"Bella", desc:"Friendly and curious."},
+  {img:"https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300", name:"Toby", desc:"Loves adventures."}
 ];
-function rotatePuppies(){
-  puppyData.forEach((p,i)=>{
-    let descEl=document.getElementById(`puppyDesc${i+1}`);
-    if(descEl) descEl.innerHTML=`<b>${p.name}</b>: ${p.desc}`;
+const familyImages = [
+  "https://images.unsplash.com/photo-1592194996308-7b43878e84a6",
+  "https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e",
+  "https://images.unsplash.com/photo-1603319672322-6a0f3b94bc5d",
+  "https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e",
+  "https://images.unsplash.com/photo-1601758123927-32d8c0b3c918",
+  "https://images.unsplash.com/photo-1574158622682-e40e69881006",
+  "https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b",
+  "https://images.unsplash.com/photo-1603319672322-6a0f3b94bc5d",
+  "https://images.unsplash.com/photo-1592194996308-7b43878e84a6",
+  "https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e"
+];
+const vehicleImages = [
+  "https://images.unsplash.com/photo-1558980664-10e71726d9c8",
+  "https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b",
+  "https://images.unsplash.com/photo-1558980664-10e71726d9c8",
+  "https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b",
+  "https://images.unsplash.com/photo-1558980664-10e71726d9c8",
+  "https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b",
+  "https://images.unsplash.com/photo-1558980664-10e71726d9c8",
+  "https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b",
+  "https://images.unsplash.com/photo-1558980664-10e71726d9c8",
+  "https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b"
+];
+
+// ----------------- Populate Carousels -----------------
+function populateCarousel(containerId, images, data=null){
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  const shuffled = images.sort(()=>0.5-Math.random()).slice(0,10);
+  shuffled.forEach((img, i)=>{
+    const div=document.createElement("div");
+    div.style.minWidth="220px";
+    div.style.marginRight="10px";
+    div.innerHTML=`<img src="${img}" style="height:200px;border-radius:10px;"><div class="description">${data?`<b>${data[i].name}</b>: ${data[i].desc}`:""}</div>`;
+    container.appendChild(div);
   });
 }
-setInterval(rotatePuppies,5000);
-rotatePuppies();
 
-// Scroll to Top
+window.onload=function(){
+  populateCarousel("puppyCarousel", puppyData.map(d=>d.img), puppyData);
+  populateCarousel("familiesCarousel", familyImages);
+  populateCarousel("vehiclesCarousel", vehicleImages);
+};
+
+// ----------------- Floating Button Functions -----------------
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+function toggleChat(){const box=document.getElementById("chatBox"); box.style.display=box.style.display==="block"?"none":"block";}
 
-// Toggle Chat
-function toggleChat(){
-  const box=document.getElementById("chatBox");
-  box.style.display=box.style.display==="block"?"none":"block";
-}
-
-// AI Chat
+// ----------------- AI Chat -----------------
 const aiKnowledge = {
   "vaccinated":"Yes! All our puppies are fully vaccinated and healthy.",
   "delivery":"We deliver puppies safely worldwide. Your puppy will be tracked and arrive healthy.",
-  "care":"Feed your puppy nutritious meals 2–3 times daily, provide clean water, play, and love.",
-  "training":"Start training early using gentle positive reinforcement. Consistency is key.",
+  "care":"Feed your puppy nutritious meals, provide clean water, play, and love.",
+  "training":"Start training early using gentle positive reinforcement.",
   "tracking":"Use your tracking code to view your puppy's location in real-time.",
-  "legitimacy":"Elite Paws & Companions has safely delivered hundreds of happy puppies. We are professional and trustworthy."
+  "legitimacy":"Elite Paws & Companions has safely delivered hundreds of happy puppies."
 };
 const sensitiveKeywords=["money","payment","legal","lawsuit","refund","bank","scam","account"];
 let chatMemory=[];
@@ -164,7 +200,7 @@ function chatReply(){
     reply=aiKnowledge.delivery;
   } else if(input.includes("care") || input.includes("health")){
     reply=aiKnowledge.care;
-  } else if(input.includes("train") || input.includes("training") || input.includes("command")){
+  } else if(input.includes("train") || input.includes("training")){
     reply=aiKnowledge.training;
   } else if(input.includes("track") || input.includes("tracking")){
     reply=aiKnowledge.tracking;
@@ -180,30 +216,64 @@ function chatReply(){
 }
 document.getElementById("userChat").addEventListener("keydown",function(e){if(e.key==="Enter"){chatReply();}});
 
-// Tracking + Map
-let map = L.map('map').setView([0, 0], 2);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-let routingControl = null;
-function createTracking(){
-  const dLat = parseFloat(document.getElementById("dispatchLat").value);
-  const dLon = parseFloat(document.getElementById("dispatchLon").value);
-  const cLat = parseFloat(document.getElementById("clientLat").value);
-  const cLon = parseFloat(document.getElementById("clientLon").value);
-  const code = document.getElementById("trackingCode").value.trim();
-  if(isNaN(dLat) || isNaN(dLon) || isNaN(cLat) || isNaN(cLon) || !code){
-    return alert("Enter all locations and tracking code!");
+// ----------------- Tracking -----------------
+const sampleTrackingData = {
+  "TRK-983472CM": {
+    sender: {name:"Elite Paws", company:"Elite Paws & Companions", origin:"Douala, CM"},
+    receiver: {name:"John Doe", city:"Yaoundé, CM", contact:"+237 6XX XXX XXX"},
+    package: {desc:"Doberman Puppy", quantity:1, weight:"5kg", type:"Crate"},
+    status: "Out for Delivery",
+    estDelivery:"26 Jan 2026",
+    method:"Express",
+    payment:"Paid",
+    notes:"Handle with care",
+    history:[
+      "22 Jan 2026 – Order received – Douala, CM",
+      "23 Jan 2026 – In transit – Yaoundé, CM",
+      "24 Jan 2026 – Arrived at destination hub",
+      "25 Jan 2026 – Out for delivery"
+    ],
+    route:{dispatch:[4.051,9.767], client:[3.848,11.502]}
   }
-  document.getElementById("trackResult").innerText = `Tracking Code Created: ${code}`;
-  if(routingControl) map.removeControl(routingControl);
-  routingControl = L.Routing.control({
-    waypoints: [L.latLng(dLat,dLon), L.latLng(cLat,cLon)],
-    routeWhileDragging: false,
-    show: false,
-    lineOptions: {styles:[{color:'blue',weight:5}]}
-  }).addTo(map);
-  map.fitBounds([[Math.min(dLat,cLat),Math.min(dLon,cLon)],[Math.max(dLat,cLat),Math.max(dLon,cLon)]]);
-}
-</script>
+};
 
-</body>
-</html>
+function showTracking(){
+  const code = document.getElementById("trackingCodeInput").value.trim();
+  if(!sampleTrackingData[code]){
+    alert("Tracking code not found");
+    return;
+  }
+  const data = sampleTrackingData[code];
+  document.getElementById("trkNumber").innerText = code;
+  document.getElementById("senderInfo").innerText = `${data.sender.name}, ${data.sender.company}, ${data.sender.origin}`;
+  document.getElementById("receiverInfo").innerText = `${data.receiver.name}, ${data.receiver.city}, ${data.receiver.contact}`;
+  document.getElementById("packageInfo").innerText = `${data.package.desc}, Quantity: ${data.package.quantity}, Weight: ${data.package.weight}, Type: ${data.package.type}`;
+  document.getElementById("statusInfo").innerText = data.status;
+  document.getElementById("estDelivery").innerText = data.estDelivery;
+  document.getElementById("deliveryMethod").innerText = data.method;
+  document.getElementById("paymentStatus").innerText = data.payment;
+  document.getElementById("notes").innerText = data.notes;
+
+  const historyList = document.getElementById("trackingHistory");
+  historyList.innerHTML = "";
+  data.history.forEach(event=>{
+    let li=document.createElement("li");
+    li.innerText = event;
+    historyList.appendChild(li);
+  });
+
+  document.getElementById("trackingDetails").style.display="block";
+
+  // Initialize map
+  if(window.trackingMap) window.trackingMap.remove();
+  window.trackingMap = L.map('map').setView(data.route.dispatch, 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'&copy; OpenStreetMap contributors'}).addTo(window.trackingMap);
+
+  L.Routing.control({
+    waypoints:[
+      L.latLng(data.route.dispatch[0], data.route.dispatch[1]),
+      L.latLng(data.route.client[0], data.route.client[1])
+    ],
+    lineOptions:{styles:[{color:'blue',weight:5}]},
+    routeWhileDragging:false,
+    show:false
