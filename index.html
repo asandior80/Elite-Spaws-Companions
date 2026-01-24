@@ -3,239 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌏Elite Paws & Companions🗺</title>
+<title>Elite Paws & Companions</title>
 <style>
-body { margin:0; font-family: Arial, Helvetica, sans-serif; background:#fff7ef; color:#333; scroll-behavior: smooth;}
-h2 {color:#ff7a18; text-align:center; margin-bottom:20px;}
-section {padding:50px 20px; max-width:1200px; margin:auto; transition: background 0.5s;}
-.grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px;}
-.card {background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.15); padding:15px; transition: transform 0.3s, opacity 0.6s; opacity:0;}
-.card img {width:100%; border-radius:10px;}
-.card:hover {transform:scale(1.03); box-shadow:0 6px 20px rgba(0,0,0,.25);}
-
-/* Header + Logo */
-header {background:linear-gradient(45deg,#ff7a18,#ffb347); color:white; text-align:center; padding:50px 20px; position:relative;}
-header img{max-width:120px; margin-bottom:15px;}
-
-/* Sticky Navigation */
-nav {position:sticky; top:0; background:#ff7a18; padding:12px; text-align:center; z-index:100;}
-nav a {color:white; margin:10px; text-decoration:none; font-weight:bold;}
-nav a:hover {text-decoration:underline;}
-
-/* Footer */
-footer {background:#ff7a18; color:white; text-align:center; padding:20px; margin-top:50px; box-shadow:0 -3px 10px rgba(0,0,0,.2);}
-
-/* Floating buttons */
-.floating{position:fixed; right:20px; border-radius:50%; width:55px; height:55px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,.3); transition:transform 0.3s;}
-.floating:hover{transform:scale(1.1);}
-.floating img{width:30px; height:30px;}
-#whatsapp{bottom:20px; background:white;}
-#email{bottom:85px; background:white;}
-#chatBtn{bottom:150px; background:#ff7a18; color:white; font-size:24px; font-weight:bold;}
-#topBtn{bottom:220px; background:#333; color:white; font-size:24px;}
-
-/* Chat box */
-#chatBox{position:fixed; bottom:290px; right:20px; width:260px; background:white; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,.3); display:none; transition:0.3s;}
-#chatBox header{background:#ff7a18; color:white; padding:10px; border-top-left-radius:10px; border-top-right-radius:10px;}
-#chatBox div{padding:10px; font-size:14px; max-height:300px; overflow-y:auto;}
-#chatBox input{width:100%; padding:6px; margin-top:5px; border-radius:6px; border:1px solid #ccc;}
-
-/* Iframe Map */
-iframe{border-radius:10px;width:100%; height:300px;}
-
-/* Section Backgrounds */
-#puppies{background: #fff7ef;}
-#families{background: #fff0e6;}
-#delivery{background: #fff7ef;}
-#contact{background: #fff0e6;}
+body {font-family: Arial,sans-serif;margin:0;padding:0;background:#f4f4f4;}
+header{background:#ff8c00;color:#fff;padding:20px;text-align:center;font-size:2em;font-weight:bold;}
+#logo{height:60px;vertical-align:middle;margin-right:10px;}
+section{padding:20px;}
+.carousel, .families, .vehicles{display:flex;overflow-x:auto;gap:15px;padding-bottom:15px;}
+.carousel img, .families img, .vehicles img{height:200px;border-radius:10px;flex-shrink:0;}
+.description{background:#fff;padding:15px;border-radius:10px;margin-top:10px;}
+.floating{position:fixed;bottom:20px;width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:1.5em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+#whatsapp{right:20px;background:#25D366;}
+#email{right:80px;background:#0072C6;}
+#chatBtn{right:140px;background:#FF8C00;}
+#topBtn{right:200px;background:#555;}
+#chatBox{display:none;position:fixed;bottom:80px;right:140px;width:300px;height:400px;background:#fff;border:2px solid #FF8C00;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
+#chatBox header{background:#FF8C00;color:#fff;padding:10px;text-align:center;font-weight:bold;}
+#chatContent{padding:10px;height:300px;overflow-y:auto;}
+#userChat{width:100%;box-sizing:border-box;padding:10px;border:none;border-top:1px solid #ccc;}
+input:focus{outline:none;}
 </style>
 </head>
 <body>
 
 <header>
-<img src="https://st2.depositphotos.com/1799371/7818/v/450/depositphotos_78187190-stock-illustration-vector-image-of-an-dog.jpg" alt="Elite Paws Logo">
-<h1>Elite Paws & Companions</h1>
-<p>Premium Puppies • Loving Families • Safe Worldwide Delivery</p>
+<img id="logo" src="https://images.unsplash.com/photo-1558788353-f76d92427f16?crop=entropy&fit=crop&w=60&h=60" alt="Logo">
+Elite Paws & Companions
 </header>
 
-<nav>
-<a href="#puppies">Puppies</a>
-<a href="#families">Reviews</a>
-<a href="#delivery">Delivery</a>
-<a href="#contact">Contact</a>
-</nav>
-
-<section id="puppies">
-<h2>🐶 Our Puppies & Dogs</h2>
-<div class="grid" id="puppyGrid"></div>
+<section>
+<h2>Puppies</h2>
+<div class="carousel" id="puppyCarousel">
+  <div class="puppyItem">
+    <img src="https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300" alt="Puppy">
+    <div class="description" id="puppyDesc1"></div>
+  </div>
+  <div class="puppyItem">
+    <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300" alt="Puppy">
+    <div class="description" id="puppyDesc2"></div>
+  </div>
+</div>
 </section>
 
-<section id="families">
-<h2>👨‍👩‍👧‍👦 Happy Families Reviews</h2>
-<div class="grid" id="familyGrid"></div>
+<section>
+<h2>Families & Reviews</h2>
+<div class="families" id="familiesCarousel">
+  <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?crop=entropy&fit=crop&w=300&h=200" alt="Family">
+  <img src="https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e?crop=entropy&fit=crop&w=300&h=200" alt="Family">
+</div>
 </section>
 
-<section id="delivery">
-<h2>🚚✈️ Delivery & Tracking</h2>
+<section>
+<h2>Delivery Vehicles</h2>
+<div class="vehicles" id="vehiclesCarousel">
+  <img src="https://images.unsplash.com/photo-1558980664-10e71726d9c8?crop=entropy&fit=crop&w=400&h=200" alt="Truck">
+  <img src="https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b?crop=entropy&fit=crop&w=400&h=200" alt="Plane">
+</div>
+</section>
 
-<h3>Create Tracking</h3>
-<input id="clientName" placeholder="Client Name">
-<input id="dogName" placeholder="Puppy Name">
-<textarea id="address" placeholder="Delivery Address"></textarea>
-<button onclick="createTracking()">Generate Tracking Code</button>
-<p id="trackingCode"></p>
-
-<h3>Track Your Package</h3>
-<input id="trackInput" placeholder="Enter Tracking Code">
+<section>
+<h2>Tracking</h2>
+<input type="text" id="trackInput" placeholder="Enter your tracking code">
 <button onclick="trackPackage()">Track</button>
 <p id="trackResult"></p>
-
-<h3>Delivery Vehicles & Planes</h3>
-<div class="grid" id="vehicleGrid"></div>
-
-<h3>Live Delivery Map</h3>
-<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-20,-40,60,40&layer=mapnik"></iframe>
 </section>
 
-<section id="contact">
-<h2>Contact Us</h2>
-<p>Email: nickpatrick887@gmail.com.com</p>
-<p>WhatsApp: +1 (365) 907-3536</p>
+<section>
+<h2>Location Map</h2>
+<div id="map" style="width:100%;height:300px;background:#ddd;text-align:center;line-height:300px;">Map Placeholder</div>
 </section>
 
-<footer>
-© 2026 Elite Paws & Companions — Trusted Worldwide | <a href="#contact" style="color:white;text-decoration:underline;">Contact</a>
-</footer>
-
-<!-- Floating Buttons with real logos -->
+<!-- Floating Buttons -->
 <div id="whatsapp" class="floating" onclick="window.open('https://wa.me/13659073536','_blank')">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="28">
 </div>
 <div id="email" class="floating" onclick="window.location='mailto:nickpatrick887@gmail.com'">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email" width="28">
 </div>
 <div id="chatBtn" class="floating" onclick="toggleChat()">🧠</div>
 <div id="topBtn" class="floating" onclick="scrollToTop()">👍</div>
 
+<!-- Chat Box -->
+<div id="chatBox">
+  <header>AI Assistant</header>
+  <div id="chatContent"></div>
+  <input type="text" id="userChat" placeholder="Ask a question">
+</div>
+
 <script>
-// ===== PUPPIES =====
-const puppyNames=["Bella","Max","Luna","Charlie","Daisy","Rocky","Lucy","Cooper","Molly","Buddy"];
-const puppyDescriptions=[
-"This puppy is healthy, playful, and ready to join a loving home. Raised with care and full of love.",
-"Full of energy and cuddles, this puppy is perfect for a family or as a companion.",
-"A sweet, social puppy who loves to interact and learn new tricks. Great temperament guaranteed.",
-"Friendly and active, this puppy brings joy and love to any home.",
-"Happy and healthy, raised in a loving environment and ready for adoption.",
-"Smart, energetic, and affectionate puppy ready to be your loyal companion.",
-"Playful, loving, and well-socialized puppy looking for a forever family.",
-"Beautiful, healthy, and full of personality. Perfect for families of all sizes.",
-"Cuddly, friendly, and active puppy ready for fun adventures with you.",
-"Loving, intelligent, and playful puppy guaranteed to make you smile daily."
+// Puppies description rotation
+const puppyData=[
+  {name:"Buddy","desc":"Buddy loves to play fetch and cuddle. Perfect for active families."},
+  {name:"Luna","desc":"Luna is gentle and loves long naps in sunny spots."}
 ];
-const puppyPics=[
-"https://images.unsplash.com/photo-1558788353-f76d92427f16",
-"https://images.unsplash.com/photo-1601758123927-1965f6c9aeb9",
-"https://images.unsplash.com/photo-1548199973-03cce0bbc87b",
-"https://images.unsplash.com/photo-1583511655826-05700d52f4d9",
-"https://images.unsplash.com/photo-1517849845537-4d257902454a",
-"https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80",
-"https://images.unsplash.com/photo-1587300003388-59208cc962cb",
-"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993",
-"https://images.unsplash.com/photo-1530281700549-e82e7bf110d6",
-"https://images.unsplash.com/photo-1600804340584-c7db2eacf0bf"
-];
-
-function shuffle(array) {return array.sort(() => Math.random() - 0.5);}
-function displayPuppies(){
-  const puppyGrid=document.getElementById("puppyGrid");
-  puppyGrid.innerHTML="";
-  const pics=shuffle(puppyPics);
-  pics.forEach((p,i)=>{
-    let card=document.createElement("div"); card.className="card"; 
-    let name=puppyNames[i]; let desc=puppyDescriptions[i]; 
-    card.innerHTML=`<img src="${p}"><h3>${name}</h3><p>${desc}</p>`;
-    puppyGrid.appendChild(card); setTimeout(()=>{card.style.opacity=1},i*200);
+let currentPuppy=0;
+function rotatePuppies(){
+  puppyData.forEach((p,i)=>{
+    document.getElementById(`puppyDesc${i+1}`).innerHTML=`<b>${puppyData[i].name}</b>: ${puppyData[i].desc}`;
   });
+  currentPuppy=(currentPuppy+1)%puppyData.length;
 }
-displayPuppies();
+setInterval(rotatePuppies,5000);
+rotatePuppies();
 
-// ===== FAMILIES =====
-const families=[
-"https://images.unsplash.com/photo-1607746882042-944635dfe10e",
-"https://images.unsplash.com/photo-1525253086316-d0c936c814f8",
-"https://images.unsplash.com/photo-1543852786-1cf6624b9987",
-"https://images.unsplash.com/photo-1601758260891-9a3fef4f3c6f",
-"https://images.unsplash.com/photo-1601972599720-36938d4ecd31",
-"https://images.unsplash.com/photo-1598133894008-61f7fdb8cc5a",
-"https://images.unsplash.com/photo-1601758003122-58c9e6f8d9a5",
-"https://images.unsplash.com/photo-1619983081563-430f63602796",
-"https://images.unsplash.com/photo-1583511655826-05700d52f4d9",
-"https://images.unsplash.com/photo-1548199973-03cce0bbc87b"
-];
-const familyGrid=document.getElementById("familyGrid");
-families.forEach((f,i)=>{
-let card=document.createElement("div"); card.className="card"; 
-card.innerHTML=`<img src="${f}"><p>“Elite Paws & Companions delivered our puppy safely. Professional service, healthy dog, and amazing support!”</p>`;
-familyGrid.appendChild(card); setTimeout(()=>{card.style.opacity=1},i*200);
-});
-
-// ===== VEHICLES =====
-const vehicles=[
-"https://images.unsplash.com/photo-1581090700227-1e37b190418e",
-"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7",
-"https://images.unsplash.com/photo-1506617420156-8e4536971650",
-"https://images.unsplash.com/photo-1593941707882-a5bba53b8d06",
-"https://images.unsplash.com/photo-1544620347-c4fd4a3d5957",
-"https://images.unsplash.com/photo-1529070538774-1843cb3265df",
-"https://images.unsplash.com/photo-1566576912321-d58ddd7a6088",
-"https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b",
-"https://images.unsplash.com/photo-1503376780353-7e6692767b70",
-"https://images.unsplash.com/photo-1493238792000-8113da705763"
-];
-const vehicleGrid=document.getElementById("vehicleGrid");
-vehicles.forEach((v,i)=>{
-let card=document.createElement("div"); card.className="card"; 
-card.innerHTML=`<img src="${v}"><p>Secure climate-controlled delivery for pets.</p>`;
-vehicleGrid.appendChild(card); setTimeout(()=>{card.style.opacity=1},i*200);
-});
-
-// ===== TRACKING SYSTEM =====
-let deliveries={};
-function createTracking(){
-let code="EP-"+Math.random().toString(36).substring(2,8).toUpperCase();
-deliveries[code]="Processing";
-document.getElementById("trackingCode").innerHTML="Your Tracking Code: <b>"+code+"</b>";
-}
+// Track package simulation
 function trackPackage(){
-let c=document.getElementById("trackInput").value.toUpperCase();
-document.getElementById("trackResult").innerHTML=deliveries[c]||"Tracking code not found";
+  const code=document.getElementById("trackInput").value;
+  if(!code) return alert("Enter a tracking code!");
+  document.getElementById("trackResult").innerText=`Tracking ${code}: Your puppy is on its way!`;
 }
 
-// ===== DYNAMIC AI CHAT =====
-const aiAnswers={
-"vaccinated":["Yes, all puppies are fully vaccinated and healthy.","Absolutely! Every puppy has up-to-date shots."],
-"deliver":["Yes, we deliver worldwide safely.","Our delivery service reaches all major countries."],
-"how long":["Delivery takes 2–7 days depending on location.","Usually 3–5 days for most destinations."],
-"care":["Feed your puppy nutritious meals twice daily.","Provide plenty of love, exercise, and regular vet checkups."],
-"default":["Sorry, I can only answer common questions for now.","Please contact us directly for more info."]
+// Scroll to top
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+
+// Floating chat toggle
+function toggleChat(){
+  const box=document.getElementById("chatBox");
+  box.style.display=box.style.display==="block"?"none":"block";
+}
+
+// AI Chat
+const aiResponses={
+  vaccinated:["Yes! All our puppies are fully vaccinated and healthy.","Absolutely! Every puppy has up-to-date shots."],
+  delivery:["We deliver worldwide safely.","Delivery usually takes 2–7 days depending on location."],
+  care:["Feed your puppy nutritious meals twice daily.","Provide love and playtime."],
+  training:["Start training early with gentle positive reinforcement.","Consistency is key! Reward good behavior."],
+  tracking:["Use your tracking code to see your puppy's location.","Tracking info is updated regularly."],
+  tips:["Puzzle toys develop intelligence.","Short daily walks keep your puppy healthy."],
+  engagement:["How is your puppy today? Any fun stories?","Have you tried teaching new commands this week?"],
+  default:["I’m not sure about that. Please contact us via WhatsApp or Email.","Our team can help you with that safely."]
 };
-
-function toggleChat(){let box=document.getElementById("chatBox"); box.style.display=box.style.display==="block"?"none":"block";}
+const sensitiveKeywords=["money","payment","legal","lawsuit","refund","bank","scam","account"];
+let chatMemory=[];
 function chatReply(){
-let input=document.getElementById("userChat").value.toLowerCase();
-let content=document.getElementById("chatContent");
-let reply="";
-if(input.includes("vaccinated")) reply=aiAnswers.vaccinated[Math.floor(Math.random()*aiAnswers.vaccinated.length)];
-else if(input.includes("deliver")) reply=aiAnswers.deliver[Math.floor(Math.random()*aiAnswers.deliver.length)];
-else if(input.includes("how long")) reply=aiAnswers["how long"][Math.floor(Math.random()*aiAnswers["how long"].length)];
-else if(input.includes("care")) reply=aiAnswers.care[Math.floor(Math.random()*aiAnswers.care.length)];
-else reply=aiAnswers.default[Math.floor(Math.random()*aiAnswers.default.length)];
-content.innerHTML+=`<p><b>You:</b> ${document.getElementById("userChat").value}</p><p><b>Bot:</b> ${reply}</p>`;
-document.getElementById("userChat").value=""; content.scrollTop=content.scrollHeight;
+  const inputEl=document.getElementById("userChat");
+  const content=document.getElementById("chatContent");
+  const input=inputEl.value.trim().toLowerCase();
+  if(!input) return;
+  let reply="";
+  if(sensitiveKeywords.some(word=>input.includes(word))){
+    reply="I’m not able to answer that directly. Contact us via WhatsApp or Email.";
+  } else if(input.includes("vaccinated")||input.includes("shots")){
+    reply=aiResponses.vaccinated[Math.floor(Math.random()*aiResponses.vaccinated.length)];
+  } else if(input.includes("deliver")||input.includes("delivery")){
+    reply=aiResponses.delivery[Math.floor(Math.random()*aiResponses.delivery.length)];
+  } else if(input.includes("care")||input.includes("health")){
+    reply=aiResponses.care[Math.floor(Math.random()*aiResponses.care.length)];
+  } else if(input.includes("train")||input.includes("training")||input.includes("command")){
+    reply=aiResponses.training[Math.floor(Math.random()*aiResponses.training.length)];
+  } else if(input.includes("track")||input.includes("tracking")){
+    reply=aiResponses.tracking[Math.floor(Math.random()*aiResponses.tracking.length)];
+  } else {
+    if(chatMemory.length<5){
+      reply=aiResponses.engagement[Math.floor(Math.random()*aiResponses.engagement.length)]+" "+aiResponses.tips[Math.floor(Math.random()*aiResponses.tips.length)];
+    } else {
+      reply=aiResponses.default[Math.floor(Math.random()*aiResponses.default.length)];
+    }
+  }
+  chatMemory.push({user:input,bot:reply});
+  if(chatMemory.length>10) chatMemory.shift();
+  content.innerHTML+=`<p><b>You:</b> ${inputEl.value}</p>`;
+  content.innerHTML+=`<p><b>Bot:</b> ${reply}</p>`;
+  inputEl.value="";
+  content.scrollTop=content.scrollHeight;
 }
-
-// ===== SCROLL TO TOP =====
-function scrollToTop(){window.scrollTo({top:0, behavior:'smooth'});}
+document.getElementById("userChat").addEventListener("keydown",function(e){if(e.key==="Enter"){chatReply();}});
 </script>
+
 </body>
 </html>
