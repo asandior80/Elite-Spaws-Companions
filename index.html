@@ -5,59 +5,127 @@
 <title>Elite Paws & Companion</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<!-- Leaflet Map -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f6f9}
-header{background:linear-gradient(90deg,#0a3cff,#00c6ff);color:#fff;padding:40px;text-align:center}
-nav{background:#111;padding:12px;text-align:center;position:sticky;top:0;z-index:999}
-nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold}
-section{padding:60px}
-h2{text-align:center;margin-bottom:30px}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial;background:#f4f6f9;color:#222}
 
-/* CAROUSELS */
-.carousel{display:flex;gap:20px;overflow-x:auto;padding-bottom:15px}
-.card{background:#fff;border-radius:12px;min-width:280px;box-shadow:0 5px 15px rgba(0,0,0,.15)}
-.card img{width:100%;height:220px;object-fit:cover;border-radius:12px 12px 0 0}
-.card .text{padding:15px}
+/* HEADER */
+header{
+background:linear-gradient(120deg,#0a3cff,#00c6ff);
+color:white;
+padding:60px 20px;
+text-align:center;
+}
 
-/* ABOUT, FAQ, BLOG, REVIEW */
-.about-banner{width:100%;height:300px;object-fit:cover;border-radius:12px;margin-bottom:20px}
-.faq-item{background:#fff;border-radius:10px;padding:15px;margin:10px 0;box-shadow:0 3px 10px rgba(0,0,0,.1)}
-.blog-card{background:#fff;border-radius:12px;min-width:280px;box-shadow:0 5px 15px rgba(0,0,0,.15)}
-.blog-card img{width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0}
-.blog-card .text{padding:12px}
+/* NAV */
+nav{
+background:#111;
+padding:14px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:999;
+}
+nav a{
+color:white;
+margin:0 15px;
+text-decoration:none;
+font-weight:bold;
+}
+nav a:hover{color:#00c6ff}
+
+/* SECTIONS */
+section{padding:70px 20px}
+h2{text-align:center;margin-bottom:35px}
+
+/* CAROUSEL */
+.carousel{
+display:flex;
+gap:25px;
+overflow-x:auto;
+padding-bottom:20px;
+}
+.card,.blog-card{
+background:white;
+border-radius:14px;
+min-width:300px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+transition:.4s;
+}
+.card:hover,.blog-card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+.card img,.blog-card img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:14px 14px 0 0;
+}
+.text{padding:18px}
+
+/* ABOUT */
+.about-banner{
+width:100%;
+height:320px;
+object-fit:cover;
+border-radius:16px;
+margin-bottom:25px;
+}
+
+/* FAQ */
+.faq-item{
+background:white;
+padding:18px;
+border-radius:12px;
+margin:12px auto;
+max-width:900px;
+box-shadow:0 6px 15px rgba(0,0,0,.12);
+}
 
 /* TRACKING */
-#map{height:420px;border-radius:12px;margin-top:20px}
-input,button{padding:12px;margin:8px;width:100%;max-width:450px}
-button{background:#0a3cff;color:#fff;border:none;border-radius:6px;font-size:16px;cursor:pointer}
+#map{height:420px;border-radius:16px;margin-top:20px}
+input,button{
+padding:14px;
+margin:10px auto;
+width:100%;
+max-width:480px;
+display:block;
+font-size:16px;
+}
+button{
+background:#0a3cff;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+button:hover{background:#0030d8}
 
 /* FLOATING BUTTONS */
 .floating{
 position:fixed;
-right:15px;
+right:18px;
 top:30%;
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:14px;
 z-index:9999;
 }
 .floating a{
-width:52px;
-height:52px;
+width:56px;
+height:56px;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
 color:white;
-font-size:22px;
+font-size:24px;
 text-decoration:none;
-box-shadow:0 4px 12px rgba(0,0,0,.3);
+box-shadow:0 6px 18px rgba(0,0,0,.35);
 }
 .whatsapp{background:#25D366}
 .email{background:#007bff}
@@ -70,87 +138,79 @@ box-shadow:0 4px 12px rgba(0,0,0,.3);
 
 <header>
 <h1>Elite Paws & Companion</h1>
-<p>Professional Pet Sales & Secure Delivery • Established 2019</p>
+<p>Trusted Pet Companions & Secure Delivery • Established 2019</p>
 </header>
 
 <nav>
 <a href="#puppies">Puppies</a>
 <a href="#families">Families</a>
 <a href="#delivery">Delivery</a>
-<a href="#about">About Us</a>
+<a href="#about">About</a>
 <a href="#faq">FAQs</a>
 <a href="#blog">Blog</a>
 <a href="#reviews">Reviews</a>
 <a href="#tracking">Tracking</a>
-<a href="#ai">AI Help</a>
+<a href="#ai">AI</a>
 </nav>
 
-<!-- PUPPIES -->
 <section id="puppies">
 <h2>Puppies & Dogs</h2>
 <div class="carousel" id="puppyBox"></div>
 </section>
 
-<!-- FAMILIES -->
 <section id="families">
-<h2>Happy Families & Reviews</h2>
+<h2>Happy Families</h2>
 <div class="carousel" id="familyBox"></div>
 </section>
 
-<!-- DELIVERY VEHICLES -->
 <section id="delivery">
 <h2>Delivery Vehicles</h2>
 <div class="carousel" id="vehicleBox"></div>
 </section>
 
-<!-- ABOUT US -->
 <section id="about">
 <h2>About Us</h2>
-<img src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13" class="about-banner">
-<p>Elite Paws & Companion is dedicated to providing loving, healthy, and well-socialized puppies to families around the world. We focus on responsible care, secure delivery, and professional service. Our experienced team ensures every companion is matched with the right family, offering guidance and support from adoption to delivery. Your pet’s safety and happiness are our top priorities.</p>
+<img class="about-banner" src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13">
+<p style="max-width:900px;margin:auto;font-size:18px;line-height:1.7">
+Elite Paws & Companion is committed to responsible pet care, professional coordination,
+and secure delivery. Since 2019, we have helped families welcome healthy companions with
+confidence, transparency, and long-term support.
+</p>
 </section>
 
-<!-- FAQs -->
 <section id="faq">
-<h2>Frequently Asked Questions</h2>
-<div class="faq-item"><strong>Q:</strong> How do I order a puppy?<br><strong>A:</strong> You can browse our puppies section, contact us via WhatsApp or email, and we will guide you through the process.</div>
-<div class="faq-item"><strong>Q:</strong> How is delivery handled?<br><strong>A:</strong> All deliveries are tracked, with secure vehicles and a unique tracking code for each order.</div>
-<div class="faq-item"><strong>Q:</strong> Are the puppies vaccinated?<br><strong>A:</strong> Yes, every puppy receives full veterinary care before leaving our facility.</div>
-<div class="faq-item"><strong>Q:</strong> Can I see reviews?<br><strong>A:</strong> Yes, our Reviews section shows families who have received companions.</div>
-<div class="faq-item"><strong>Q:</strong> How do I track my order?<br><strong>A:</strong> Enter your location and client location in the tracking section to get a code and map route.</div>
+<h2>FAQs</h2>
+<div class="faq-item"><b>How does delivery work?</b><br>Secure scheduling with live tracking visualization.</div>
+<div class="faq-item"><b>Is tracking real?</b><br>A unique code and live route simulation are provided.</div>
+<div class="faq-item"><b>Do you offer support?</b><br>Yes, before and after delivery guidance.</div>
 </section>
 
-<!-- BLOG / TIPS -->
 <section id="blog">
-<h2>Blog & Tips</h2>
+<h2>Blog & Care Tips</h2>
 <div class="carousel" id="blogBox"></div>
 </section>
 
-<!-- REVIEWS -->
 <section id="reviews">
-<h2>Testimonials & Reviews</h2>
+<h2>Client Reviews</h2>
 <div class="carousel" id="reviewBox"></div>
 </section>
 
-<!-- TRACKING -->
 <section id="tracking">
 <h2>Live Delivery Tracking</h2>
-<input id="from" placeholder="Your Location (Seller)">
-<input id="to" placeholder="Client Location">
+<input placeholder="Seller Location">
+<input placeholder="Client Location">
 <button onclick="generateTracking()">Generate Tracking Code</button>
-<p id="trackCode"></p>
+<p id="trackCode" style="text-align:center;font-weight:bold"></p>
 <div id="map"></div>
 </section>
 
-<!-- AI -->
 <section id="ai">
 <h2>AI Assistant</h2>
 <input id="question" placeholder="Ask about delivery, tracking, or process">
 <button onclick="askAI()">Ask AI</button>
-<p id="answer"></p>
+<p id="answer" style="text-align:center"></p>
 </section>
 
-<!-- FLOATING BUTTONS -->
 <div class="floating">
 <a href="https://wa.me/13659073536" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
 <a href="mailto:nickpatrick887@gmail.com" class="email"><i class="fas fa-envelope"></i></a>
@@ -158,102 +218,81 @@ box-shadow:0 4px 12px rgba(0,0,0,.3);
 <a href="#top" class="up"><i class="fas fa-arrow-up"></i></a>
 </div>
 
-<!-- LEAFLET MAP -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-// ===== PUPPIES =====
-const puppies=[
-["Oliver","https://images.unsplash.com/photo-1601758123927-1961a8c6c94b","Oliver is calm and affectionate, perfectly suited for families."],
-["Bella","https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993","Bella is joyful, full of energy, and loves bonding with her family."],
-["Max","https://images.unsplash.com/photo-1558788353-f76d92427f16","Max is intelligent, playful, and enjoys learning new routines."],
-["Luna","https://images.unsplash.com/photo-1507146426996-ef05306b995a","Luna has a calm presence, enjoys cuddles, and adapts easily."],
-["Rocky","https://images.unsplash.com/photo-1518717758536-85ae29035b6d","Rocky is confident, energetic, perfect for active families."],
-["Daisy","https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb","Daisy is gentle, friendly, and thrives in caring environments."],
-["Charlie","https://images.unsplash.com/photo-1601979031925-424e53b6caaa","Charlie is curious, intelligent, and forms strong emotional bonds."],
-["Milo","https://images.unsplash.com/photo-1548199973-03cce0bbc87b","Milo is calm and affectionate, enjoys companionship."],
-["Ruby","https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80","Ruby is gentle and attentive, responding well to love and care."],
-["Leo","https://images.unsplash.com/photo-1517423440428-a5a00ad493e8","Leo is confident, loyal, and enjoys playful moments with his family."]
-];
+function shuffle(a){
+for(let i=a.length-1;i>0;i--){
+const j=Math.floor(Math.random()*(i+1));
+[a[i],a[j]]=[a[j],a[i]];
+}
+return a;
+}
 
-const puppyBox=document.getElementById("puppyBox");
-puppies.forEach(p=>{
-puppyBox.innerHTML+=`
-<div class="card"><img src="${p[1]}"><div class="text"><h3>${p[0]}</h3><p>${p[2]}</p></div></div>`;
+/* DATA */
+const puppies=shuffle([
+["Oliver","https://images.unsplash.com/photo-1601758123927-1961a8c6c94b","Calm, affectionate, and family-ready companion."],
+["Bella","https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993","Joyful and energetic with a loving nature."],
+["Max","https://images.unsplash.com/photo-1558788353-f76d92427f16","Confident, intelligent, and alert."],
+["Luna","https://images.unsplash.com/photo-1507146426996-ef05306b995a","Gentle and peaceful with a calm presence."],
+["Rocky","https://images.unsplash.com/photo-1518717758536-85ae29035b6d","Playful and adventurous personality."],
+["Daisy","https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb","Friendly, warm-hearted, and affectionate."]
+]);
+
+const families=shuffle([
+["https://images.unsplash.com/photo-1525253086316-d0c936c814f8","A joyful family bonding with their new companion."],
+["https://images.unsplash.com/photo-1507149833265-60c372daea22","A peaceful home filled with trust and care."],
+["https://images.unsplash.com/photo-1548199973-03cce0bbc87b","Daily routines strengthened by companionship."]
+]);
+
+const vehicles=shuffle([
+["https://images.unsplash.com/photo-1601584115197-04ecc0da31d7","Secure professional transport truck."],
+["https://images.unsplash.com/photo-1568605114967-8130f3a36994","Reliable cargo van for safe delivery."],
+["https://images.unsplash.com/photo-1586864387789-628af9feed72","Urban delivery vehicle ensuring efficiency."]
+]);
+
+const blogs=shuffle([
+["https://images.unsplash.com/photo-1558788353-f76d92427f16","Care Tips","How to raise a healthy companion."],
+["https://images.unsplash.com/photo-1601979031925-424e53b6caaa","Travel Safety","Ensuring comfort during transport."],
+["https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80","Training Basics","Building trust and discipline."]
+]);
+
+const reviews=shuffle([
+["https://images.unsplash.com/photo-1507149833265-60c372daea22","Client Review","Professional service and smooth delivery."],
+["https://images.unsplash.com/photo-1525253086316-d0c936c814f8","Client Review","Excellent care and communication."]
+]);
+
+/* RENDER */
+puppies.slice(0,5).forEach(p=>{
+puppyBox.innerHTML+=`<div class="card"><img src="${p[1]}"><div class="text"><h3>${p[0]}</h3><p>${p[2]}</p></div></div>`;
 });
-
-// ===== FAMILIES =====
-const families=[
-["https://images.unsplash.com/photo-1548199973-03cce0bbc87b","The Johnsons welcomed their new companion with joy."],
-["https://images.unsplash.com/photo-1525253086316-d0c936c814f8","The Smith family enjoys playful afternoons with their beloved dog."],
-["https://images.unsplash.com/photo-1530281700549-e82e7bf110d6","The Roberts cherish daily walks and bonding moments."],
-["https://images.unsplash.com/photo-1507149833265-60c372daea22","The Williams provide a loving environment for their furry friend."],
-["https://images.unsplash.com/photo-1560807707-8cc77767d783","The Browns enjoy family outings with their dog."]
-];
-
-const familyBox=document.getElementById("familyBox");
-families.forEach(f=>{
+families.slice(0,3).forEach(f=>{
 familyBox.innerHTML+=`<div class="card"><img src="${f[0]}"><div class="text"><p>${f[1]}</p></div></div>`;
 });
-
-// ===== DELIVERY VEHICLES =====
-const vehicles=[
-["https://images.unsplash.com/photo-1601584115197-04ecc0da31d7","Modern delivery truck ensuring secure transport."],
-["https://images.unsplash.com/photo-1568605114967-8130f3a36994","Reliable cargo van for safe delivery."],
-["https://images.unsplash.com/photo-1590490360182-c33d57733427","Climate-controlled transport vehicle."],
-["https://images.unsplash.com/photo-1586864387789-628af9feed72","City delivery van for punctual and efficient routes."],
-["https://images.unsplash.com/photo-1614018453562-77f6180ce036","Secure transport van for careful handling."]
-];
-
-const vehicleBox=document.getElementById("vehicleBox");
-vehicles.forEach(v=>{
+vehicles.slice(0,3).forEach(v=>{
 vehicleBox.innerHTML+=`<div class="card"><img src="${v[0]}"><div class="text"><p>${v[1]}</p></div></div>`;
 });
-
-// ===== BLOG =====
-const blogs=[
-["https://images.unsplash.com/photo-1558788353-f76d92427f16","Caring Tips for Puppies","Learn how to nurture your puppy for a healthy and happy life."],
-["https://images.unsplash.com/photo-1601979031925-424e53b6caaa","Traveling Safely with Your Pet","Best practices for transporting your companion securely."],
-["https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80","Training Basics","Simple steps to train your puppy effectively and kindly."]
-];
-
-const blogBox=document.getElementById("blogBox");
-blogs.forEach(b=>{
+blogs.slice(0,3).forEach(b=>{
 blogBox.innerHTML+=`<div class="blog-card"><img src="${b[0]}"><div class="text"><h3>${b[1]}</h3><p>${b[2]}</p></div></div>`;
 });
-
-// ===== REVIEWS =====
-const reviews=[
-["https://images.unsplash.com/photo-1525253086316-d0c936c814f8","The Smiths","Amazing experience! Our puppy arrived happy and healthy."],
-["https://images.unsplash.com/photo-1507149833265-60c372daea22","The Williams","Professional service and very caring team."],
-["https://images.unsplash.com/photo-1548199973-03cce0bbc87b","The Johnsons","Highly recommend Elite Paws & Companion for any family."]
-];
-
-const reviewBox=document.getElementById("reviewBox");
-reviews.forEach(r=>{
-reviewBox.innerHTML+=`<div class="card"><img src="${r[0]}"><div class="text"><h3>${r[1]}</h3><p>${r[2]}</p></div></div>`;
+reviews.slice(0,2).forEach(r=>{
+reviewBox.innerHTML+=`<div class="card"><img src="${r[0]}"><div class="text"><p>${r[2]}</p></div></div>`;
 });
 
-// ===== MAP & TRACKING =====
+/* MAP */
 const map=L.map("map").setView([6.5,3.3],5);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 let route;
-
 function generateTracking(){
-document.getElementById("trackCode").innerText="Tracking Code: EPC-"+Math.floor(Math.random()*100000);
-if(route) map.removeLayer(route);
-route=L.polyline([[6.5,3.3],[9.0,7.3]],{color:"blue"}).addTo(map);
+trackCode.innerText="Tracking Code: EPC-"+Math.floor(Math.random()*99999);
+if(route)map.removeLayer(route);
+route=L.polyline([[6.5,3.3],[9,7.3]],{color:"blue"}).addTo(map);
 map.fitBounds(route.getBounds());
 }
 
-// ===== AI =====
+/* AI */
 function askAI(){
-const q=document.getElementById("question").value.toLowerCase();
-let r="Our team will assist you shortly.";
-if(q.includes("delivery")) r="We provide secure door-to-door delivery with tracking.";
-if(q.includes("tracking")) r="You receive a unique tracking code for every order.";
-if(q.includes("price")) r="Pricing depends on distance and care services.";
-document.getElementById("answer").innerText=r;
+answer.innerText="We provide secure delivery, tracking, and full support throughout the process.";
 }
 </script>
 
