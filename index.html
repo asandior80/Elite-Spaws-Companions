@@ -2,227 +2,233 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Elite Paws & Companion | Trusted Pet Delivery</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Elite Paws & Companion</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f7fb;
-    color: #222;
-}
-header {
-    background: linear-gradient(to right, #0a3cff, #00c6ff);
-    color: white;
-    padding: 40px 20px;
-    text-align: center;
-}
-section {
-    padding: 40px 20px;
-    max-width: 1100px;
-    margin: auto;
-}
-h2 {
-    color: #0a3cff;
-}
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-}
-img {
-    width: 100%;
-    border-radius: 12px;
-}
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-button {
-    background: #0a3cff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-footer {
-    background: #111;
-    color: white;
-    text-align: center;
-    padding: 30px;
-}
-.whatsapp {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25d366;
-    padding: 15px;
-    border-radius: 50%;
-    font-size: 20px;
-    color: white;
-    text-decoration: none;
-}
-.map {
-    background: #dbe9ff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-.blue-line {
-    height: 4px;
-    background: blue;
-    margin: 20px 0;
-}
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family: Arial, sans-serif; background:#f4f7fb; color:#222; line-height:1.6; scroll-behavior:smooth;}
+h1,h2,h3 {color:#0a3cff;}
+a {color:#0a3cff; text-decoration:none;}
+section {padding:60px 20px; max-width:1200px; margin:auto;}
+.card {background:white; padding:20px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); margin-bottom:40px;}
+button {background:#0a3cff; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; margin-top:10px;}
+input,textarea {width:100%; padding:10px; margin-top:10px; border-radius:6px; border:1px solid #ccc;}
+img {width:100%; border-radius:12px;}
+.gallery {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+header {background:linear-gradient(to right,#0a3cff,#00c6ff); color:white; padding:40px 20px; text-align:center;}
+header svg{vertical-align: middle;}
+footer {background:#111; color:white; text-align:center; padding:30px;}
+.whatsapp {position: fixed; bottom:20px; right:20px; background:#25d366; padding:15px; border-radius:50%; font-size:20px; color:white; text-decoration:none; z-index:100;}
+.map {background:#dbe9ff; padding:20px; border-radius:10px; text-align:center; position:relative; height:200px; overflow:hidden; margin-top:20px;}
+.route {position:absolute; left:10%; top:50%; height:8px; width:0; background:blue; border-radius:4px; transform:translateY(-50%);}
+.stage {position:absolute; top:40%; width:20px; height:20px; border-radius:50%; background:#0a3cff; text-align:center; color:white; font-size:12px; line-height:20px; cursor:pointer; transition: transform 0.2s;}
+.stage:hover {transform: scale(1.4);}
+.stage::after {content: attr(data-tooltip); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%); background: #0a3cff; color: white; padding: 5px 8px; border-radius: 6px; font-size: 10px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 10;}
+.stage:hover::after {opacity: 1;}
+.stage1 { left:10%; }
+.stage2 { left:45%; }
+.stage3 { left:80%; }
 </style>
 </head>
-
 <body>
 
+<!-- ===== HEADER ===== -->
 <header>
+<svg width="60" height="60" viewBox="0 0 64 64">
+  <circle cx="20" cy="20" r="6" fill="#0a3cff"/>
+  <circle cx="44" cy="20" r="6" fill="#0a3cff"/>
+  <circle cx="32" cy="44" r="6" fill="#0a3cff"/>
+  <line x1="20" y1="20" x2="32" y2="44" stroke="#0a3cff" stroke-width="3"/>
+  <line x1="44" y1="20" x2="32" y2="44" stroke="#0a3cff" stroke-width="3"/>
+</svg>
 <h1>Elite Paws & Companion</h1>
-<p>Professional Pet Sales & Courier Services</p>
-<p>Established: 2019</p>
+<p>Professional Pet Sales & Courier Services | Established: 2019</p>
 </header>
 
-<section class="card">
-<h2>About Us</h2>
+<!-- ===== ABOUT ===== -->
+<section id="about" class="card">
+<h2>About Elite Paws & Companion</h2>
 <p>
-Elite Paws & Companion is a professionally managed pet sales and companion delivery agency
-committed to ethical handling, transparency, and customer satisfaction. For over five years,
-we have connected loving homes with carefully raised companion animals while ensuring
-secure documentation, structured delivery processes, and continuous client support.
+Elite Paws & Companion is a trusted professional pet delivery and companion agency. 
+We ensure every puppy and companion animal reaches its new home safely, securely, 
+and with love. Our team of experienced couriers and professional support ensures 
+transparency and peace of mind. For over five years, we have connected loving homes 
+with carefully raised companion animals while maintaining ethical standards, safe 
+transport, and full customer support.
 </p>
 </section>
 
-<section class="card">
-<h2>Smart Support Assistant</h2>
-<p>
-Our Smart Support Assistant is available 24/7 to guide buyers and sellers through the process,
-answer common questions, and provide delivery explanations without delay.
-</p>
-<p><strong>Email:</strong> nickpatrick887@gmail.com</p>
-<p><strong>Phone / WhatsApp:</strong> +1 (365) 907‑3536</p>
+<!-- ===== GALLERY ===== -->
+<section id="gallery" class="card">
+<h2>Meet Our Companions & Couriers</h2>
+<div class="gallery" id="homeGallery"></div>
 </section>
 
-<section class="card">
-<h2>Buyer & Seller Information</h2>
-<input placeholder="Buyer Full Name">
-<input placeholder="Buyer Location">
-<input placeholder="Seller Name">
-<input placeholder="Seller Location">
-<input placeholder="Companion Name">
-<textarea placeholder="Additional Information"></textarea>
-<button onclick="generateCode()">Generate Tracking Code</button>
+<!-- ===== TRACKING ===== -->
+<section id="tracking" class="card">
+<h2>Track Your Companion</h2>
+<input type="text" id="trackingInput" placeholder="Enter your tracking code">
+<button onclick="trackCode()">Track</button>
 <p id="trackingResult"></p>
-</section>
 
-<section class="card">
-<h2>Tracking Visualization</h2>
 <div class="map">
-<p>Estimated Route Visualization</p>
-<div class="blue-line"></div>
-<p>Distance & delivery stages are calculated based on provided locations.</p>
+  <div class="route" id="route"></div>
+  <div class="stage stage1" data-tooltip="Picked up by Seller">S</div>
+  <div class="stage stage2" data-tooltip="With Courier">C</div>
+  <div class="stage stage3" data-tooltip="Near Destination / Delivered">B</div>
+  <p id="mapInfo">Your delivery route will appear here after entering tracking code.</p>
 </div>
 </section>
 
-<section>
-<h2>Our Companions & Courier Team</h2>
-<div class="gallery" id="gallery"></div>
+<!-- ===== ADMIN INFO / GENERATE PDF ===== -->
+<section id="admin" class="card">
+<h2>Admin / Companion Management</h2>
+<input type="text" id="compName" placeholder="Companion Name">
+<textarea id="compDesc" placeholder="Description"></textarea>
+<input type="text" id="compImg" placeholder="Image URL">
+<button onclick="addCompanion()">Add Companion</button>
+<button onclick="generateCode()">Generate Tracking Code</button>
+<p id="adminCode"></p>
+<button onclick="generatePDF()">Generate PDF Invoice</button>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="card">
+<h2>Contact Us</h2>
+<p>Email: <a href="mailto:nickpatrick887@gmail.com">nickpatrick887@gmail.com</a></p>
+<p>WhatsApp: <a href="https://wa.me/13659073536" target="_blank">+1 (365) 907-3536</a></p>
 </section>
 
 <footer>
-<p>© Elite Paws & Companion — Trusted Pet Handling & Delivery</p>
-<p>Contact: nickpatrick887@gmail.com | +1 (365) 907‑3536</p>
+<p>© Elite Paws & Companion | Trusted Pet Handling & Delivery</p>
 </footer>
-
 <a class="whatsapp" href="https://wa.me/13659073536" target="_blank">💬</a>
 
 <script>
-function generateCode() {
-    const code = "EPC-" + Math.floor(Math.random() * 1000000);
-    document.getElementById("trackingResult").innerText =
-    "Your Tracking Code: " + code;
-}
-
-const images = [
-{
-url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c",
-name:"Luna",
-desc:"Luna is a calm and affectionate companion known for her gentle presence and strong emotional connection with humans. She enjoys quiet environments and adapts easily to new homes."
-},
-{
-url:"https://images.unsplash.com/photo-1558788353-f76d92427f16",
-name:"Max",
-desc:"Max is energetic, observant, and confident. He enjoys structured routines and thrives in environments where care and attention are prioritized."
-},
-{
-url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa",
-name:"Bella",
-desc:"Bella displays a calm temperament with a playful curiosity. She bonds deeply with families and enjoys interactive engagement."
-},
-{
-url:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b",
-name:"Rocky",
-desc:"Rocky is strong‑spirited yet affectionate, displaying loyalty and calm behavior during travel and relocation."
-},
-{
-url:"https://images.unsplash.com/photo-1517849845537-4d257902454a",
-name:"Milo",
-desc:"Milo is alert, friendly, and highly adaptable, making transitions smooth and stress‑free."
-},
-{
-url:"https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
-name:"Daisy",
-desc:"Daisy has a nurturing presence and responds well to structured environments and gentle handling."
-},
-{
-url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e",
-name:"Leo",
-desc:"Leo shows confidence and patience during transport and thrives with professional handling."
-},
-{
-url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8",
-name:"Zara",
-desc:"Zara is graceful and attentive, offering emotional comfort and steady companionship."
-},
-{
-url:"https://images.unsplash.com/photo-1507149833265-60c372daea22",
-name:"Shadow",
-desc:"Shadow is observant and calm, adjusting smoothly to new surroundings."
-},
-{
-url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993",
-name:"Nova",
-desc:"Nova has a balanced temperament and is well‑suited for family companionship."
-}
+// ===== COMPANION / COURIER GALLERY SLIDESHOW =====
+const homeGallery = document.getElementById("homeGallery");
+const companions = [
+{ name:"Luna", desc:"Luna is calm, affectionate, and adapts easily.", url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c" },
+{ name:"Max", desc:"Max is energetic, confident, and loves routines.", url:"https://images.unsplash.com/photo-1558788353-f76d92427f16" },
+{ name:"Bella", desc:"Bella is curious, playful, and bonds deeply with families.", url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa" },
+{ name:"Rocky", desc:"Rocky is strong-spirited, loyal, and calm during travel.", url:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b" },
+{ name:"Milo", desc:"Milo is alert, friendly, and highly adaptable.", url:"https://images.unsplash.com/photo-1517849845537-4d257902454a" },
+{ name:"Daisy", desc:"Daisy has a nurturing presence and gentle handling.", url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e" },
+{ name:"Leo", desc:"Leo shows confidence and patience during transport.", url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8" },
+{ name:"Zara", desc:"Zara is graceful, attentive, and offers comfort.", url:"https://images.unsplash.com/photo-1507149833265-60c372daea22" },
+{ name:"Shadow", desc:"Shadow is observant, calm, and adjusts to new surroundings.", url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993" },
+{ name:"Nova", desc:"Nova has a balanced temperament and is family-ready.", url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa" },
+{ name:"Courier1", desc:"Professional courier ensuring safe delivery.", url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86" },
+{ name:"Courier2", desc:"Courier carefully handling companion animals.", url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6" }
 ];
-
-const gallery = document.getElementById("gallery");
-images.sort(() => 0.5 - Math.random());
-
-images.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-    <img src="${item.url}">
-    <h3>${item.name}</h3>
-    <p>${item.desc}</p>
-    `;
-    gallery.appendChild(div);
+companions.sort(()=>0.5-Math.random());
+homeGallery.innerHTML="";
+companions.forEach((c,index)=>{
+  const div=document.createElement("div");
+  div.className="card";
+  div.style.display = (index===0)?"block":"none";
+  div.innerHTML=`<img src="${c.url}"><h3>${c.name}</h3><p>${c.desc}</p>`;
+  homeGallery.appendChild(div);
 });
-</script>
+let currentIndex=0;
+setInterval(()=>{
+  const cards=homeGallery.children;
+  cards[currentIndex].style.display="none";
+  currentIndex=(currentIndex+1)%cards.length;
+  cards[currentIndex].style.display="block";
+},5000);
 
+// ===== TRACKING =====
+function generateCode(){
+  const code="EPC-"+Math.floor(Math.random()*1000000);
+  if(document.getElementById("trackingResult")) document.getElementById("trackingResult").innerText="Tracking Code: "+code;
+  if(document.getElementById("adminCode")) document.getElementById("adminCode").innerText="Tracking Code: "+code;
+}
+
+function trackCode(){
+    const val = document.getElementById("trackingInput").value.trim();
+    if(!val){alert("Enter code"); return;}
+    const trackingResult=document.getElementById("trackingResult");
+    const mapInfo=document.getElementById("mapInfo");
+    const route=document.getElementById("route");
+    trackingResult.innerText="Tracking Code: "+val+"\nStatus: Preparing...";
+    mapInfo.innerText="Route: Seller (S) → Courier (C) → Buyer (B)";
+    route.style.width="0%";
+    const stages=[
+        {percent:25, status:"Picked up by Seller (S)"},
+        {percent:50, status:"Package with Courier (C)"},
+        {percent:75, status:"Near Destination (B)"},
+        {percent:100, status:"Delivered"}
+    ];
+    let i=0;
+    const interval=setInterval(()=>{
+        if(i>=stages.length){clearInterval(interval); trackingResult.innerText+="\nDelivery Completed ✅"; return;}
+        const stage=stages[i];
+        route.style.width=stage.percent+"%";
+        trackingResult.innerText="Tracking Code: "+val+"\nStatus: "+stage.status+"\nDistance: ~"+(stage.percent/100*12).toFixed(1)+" km\nEstimated Delivery: "+((stage.percent/100*2).toFixed(1))+" hrs";
+        i++;
+    },2000);
+}
+
+// ===== ADMIN FUNCTIONS =====
+function addCompanion(){
+  const name=document.getElementById("compName").value;
+  const desc=document.getElementById("compDesc").value;
+  const url=document.getElementById("compImg").value;
+  if(!name||!desc||!url){alert("Fill all fields"); return;}
+  alert("Companion Added!\nName: "+name);
+}
+
+function generatePDF(){
+  const { jsPDF }=window.jspdf;
+  const doc=new jsPDF();
+  const companionName=document.getElementById("compName").value || "Luna";
+  const buyerName="John Doe";
+  const sellerName="Elite Paws & Companion";
+  const trackingCode=document.getElementById("adminCode").innerText || "EPC-123456";
+  const deliveryTime="2 hrs";
+  const companionImg=document.getElementById("compImg").value || "https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c";
+  doc.setFontSize(18);
+  doc.text("Elite Paws & Companion",105,15,null,null,"center");
+  doc.setFontSize(12);
+  doc.text("Trusted Pet Handling & Delivery",105,22,null,null,"center");
+  doc.line(10,28,200,28);
+  doc.setFontSize(14);
+  doc.text("Companion Name: "+companionName,14,40);
+  doc.text("Buyer: "+buyerName,14,50);
+  doc.text("Seller: "+sellerName,14,60);
+  doc.text("Tracking Code: "+trackingCode,14,70);
+  doc.text("Estimated Delivery: "+deliveryTime,14,80);
+  const img=new Image();
+  img.crossOrigin="anonymous";
+  img.src=companionImg;
+  img.onload=function(){
+    doc.addImage(img,'JPEG',140,40,50,50);
+    const stages=[
+      {label:"S", status:"Picked up by Seller"},
+      {label:"C", status:"With Courier"},
+      {label:"B", status:"Near Destination / Delivered"}
+    ];
+    doc.setFontSize(10);
+    doc.setTextColor(0,0,255);
+    doc.setDrawColor(0,0,255);
+    doc.setLineWidth(1.5);
+    doc.line(14,100,80,100);
+    doc.line(80,100,140,100);
+    stages.forEach((stage,i)=>{
+      const x=14+i*66;
+      doc.circle(x,100,4,'FD');
+      doc.text(stage.label,x-1.5,104);
+      doc.text(stage.status,x-15,115);
+    });
+    doc.save("Invoice_"+companionName+".pdf");
+  }
+  img.onerror=function(){
+    doc.text("Image could not be loaded.",140,70);
+    doc.save("Invoice_"+companionName+".pdf");
+  }
+}
+</script>
 </body>
 </html>
