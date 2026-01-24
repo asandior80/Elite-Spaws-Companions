@@ -280,25 +280,6 @@ const puppies = [
     desc: "Leo is confident and warm-hearted, displaying loyalty and curiosity. He enjoys both playtime and rest, making him a balanced and loving companion."
   }
 ];
-
-// ===== END CAROUSEL DATA =====
-<script>
-// ===== CAROUSEL DATA =====
-
-const puppies = [
-  {
-    url: "https://images.unsplash.com/photo-1601758123927-1961a8c6c94b",
-    name: "Oliver",
-    desc: "Oliver is a gentle, calm companion known for his affectionate nature and playful curiosity. He adapts easily to new environments and enjoys human attention."
-  },
-  {
-    url: "https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993",
-    name: "Bella",
-    desc: "Bella is energetic and joyful, always eager to explore. She forms strong bonds with families and thrives in loving environments."
-  }
-];
-
-// ===== END CAROUSEL DATA =====
 // ===== FAMILIES CAROUSEL: People with Dogs & Reviews =====
 const families = [
   {
@@ -343,62 +324,51 @@ const families = [
   }
 ];
 
-// ===== DELIVERY VEHICLES CAROUSEL: Trucks & Vans =====
-const vehicles = [
+<script>
+// ===== DELIVERY VEHICLES CAROUSEL DATA =====
+
+const deliveryVehicles = [
   {
-    url:"https://pixabay.com/get/g4c68e6f9d6bca8c5d87977d5b8b1dbed4e5b13fbb6b4f139a9b4f125e6eaf9d15a3d3e67630606e28f9f03cee1b920a2_1280.jpg",
-    desc:"Our sleek delivery trucks are equipped with climate‑controlled interiors to ensure every pet travels comfortably."
+    url: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7",
+    desc: "A modern delivery truck designed for secure and organized transport. This vehicle represents reliability, efficiency, and professional handling of companion deliveries."
   },
   {
-    url:"https://pixabay.com/get/g10744736cebd3d4a45f7c3eeb9e3bc4921a27d40d94013f3293cfcf6a42878a699ba16f20ea9c3d5a2e469aee5cab76f_1280.jpg",
-    desc:"A dependable delivery van on the highway, designed for secure transport and efficient pet relocation."
+    url: "https://images.unsplash.com/photo-1590490360182-c33d57733427",
+    desc: "A plain cargo van built for long-distance logistics. Climate-controlled interiors ensure comfort and safety throughout the journey."
   },
   {
-    url:"https://pixabay.com/get/g0d7eb8bb5aafc53d7fa08ed3f4f9402c51cb9728ccee7f19157e6df48ec6f1081e65efc7a65d5f8e081783a6673b14c1_1280.jpg",
-    desc:"Our logistics fleet includes spacious vans for long‑distance travel while keeping pets calm and safe."
+    url: "https://images.unsplash.com/photo-1586864387789-628af9feed72",
+    desc: "A dependable delivery vehicle navigating city routes smoothly, ensuring timely arrivals while maintaining calm and controlled transport conditions."
   },
   {
-    url:"https://pixabay.com/get/g1e0b565659cc3f95e209da8e2e7662bb146fb8b588520b10e1452a8c94c9cdec7f6a22787c8ebe34fb9fcdce2151c8e9_1280.jpg",
-    desc:"High‑roof cargo trucks ready for secure loading and fast transit — ideal for busy delivery routes."
+    url: "https://images.unsplash.com/photo-1614018453562-77f6180ce036",
+    desc: "This professional transport van is equipped for organized travel, offering a stable and secure environment during transit."
   },
   {
-    url:"https://pixabay.com/get/g91c2e06a09e2a6be7dffd069f4f93a946e70f124ca28921b82ab0ab4ceb21c62debe9e92247ee33a15beac1dc4bf4c4d_1280.jpg",
-    desc:"Modern delivery van parked at dispatch — illustrating our commitment to reliable service."
+    url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+    desc: "A long-wheelbase delivery truck capable of handling extended routes while prioritizing safety and efficiency."
   },
   {
-    url:"https://pixabay.com/get/ga9b3f8a1d547d7ef3db6aa6c0a101b9fb1dca2ee8c490d56a77e5e4a1ecdf0f350863377d6ebb49b6bd7f808447c9cab_1280.jpg",
-    desc:"A busy truck on the move, representing our dynamic delivery network across town and beyond."
+    url: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
+    desc: "A logistics-ready transport van used for professional deliveries, representing precision, care, and responsibility."
   },
   {
-    url:"https://pixabay.com/get/gfd2bceee4adf5c9af462714a1e2ef2c617a5d075e1400e6438ad183c19103f9085c3857f78be4e0713f73a5ef4e98a6f_1280.jpg",
-    desc:"Reliable transportation van with cargo doors open — ready for secure loading and pet comfort."
+    url: "https://images.unsplash.com/photo-1581091870622-1e7e4804c8b0",
+    desc: "This delivery truck reflects Elite Paws & Companion’s commitment to reliable and carefully managed transportation."
   },
   {
-    url:"https://pixabay.com/get/gd2c1bcda6c3668d78f29bbee4bbe7b7e5cee7d7f38e61a6999a0ee9e2af0156f7c4c901314b96e079d43b51ba2b9f2629_1280.jpg",
-    desc:"Delivery van cruising through city streets with speed and precision."
+    url: "https://images.unsplash.com/photo-1601918774946-25832a4be0d6",
+    desc: "A clean, well-maintained cargo vehicle prepared for efficient transport across regional routes."
   },
   {
-    url:"https://pixabay.com/get/g4db370a95a33d0bc5afd69239b5f9b67fab88fca8e8e173ce0ab2c26b0531bf723f44fac99b20fceb3b15798fab58a5e_1280.jpg",
-    desc:"Fleet vehicle ready at dawn — a reliable start to another day of deliveries."
+    url: "https://images.unsplash.com/photo-1605745341112-85968b19335b",
+    desc: "A secure delivery van stationed at dispatch, ready for scheduled and organized companion transportation."
   },
   {
-    url:"https://pixabay.com/get/g576a9d634c097a0d71aad30dbb4c4aa8f0c4d2eebbf244c21f1a28bb1d8e723f2a2ed907d1470f487bd2f9df80117250a_1280.jpg",
-    desc:"Large cargo truck symbolizing our ability to handle orders of all sizes."
+    url: "https://images.unsplash.com/photo-1570129477492-4090c3c96fb8",
+    desc: "A professional logistics truck symbolizing trust, punctuality, and structured delivery operations."
   }
 ];
-    url:"https://pixabay.com/get/gfd2bceee4adf5c9af462714a1e2ef2c617a5d075e1400e6438ad183c19103f9085c3857f78be4e0713f73a5ef4e98a6f_1280.jpg",
-    desc:"Reliable transportation van with cargo doors open — ready for secure loading and pet comfort."
-  },
-  {
-    url:"https://pixabay.com/get/gd2c1bcda6c3668d78f29bbee4bbe7b7e5cee7d7f38e61a6999a0ee9e2af0156f7c4c901314b96e079d43b51ba2b9f2629_1280.jpg",
-    desc:"Delivery van cruising through city streets with speed and precision."
-  },
-  {
-    url:"https://pixabay.com/get/g4db370a95a33d0bc5afd69239b5f9b67fab88fca8e8e173ce0ab2c26b0531bf723f44fac99b20fceb3b15798fab58a5e_1280.jpg",
-    desc:"Fleet vehicle ready at dawn — a reliable start to another day of deliveries."
-  },
-  {
-    url:"https://pixabay.com/get/g576a9d634c097a0d71aad30dbb4c4aa8f0c4d2eebbf244c21f1a28bb1d8e723f2a2ed907d1470f487bd2f9df80117250a_1280.jpg",
-    desc:"Large cargo truck symbolizing our ability to handle orders of all sizes."
-  }
-];
+
+// ===== END DELIVERY VEHICLES DATA =====
+</script>
