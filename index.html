@@ -17,11 +17,13 @@ section{padding:20px;}
 #email{right:80px;background:#0072C6;}
 #chatBtn{right:140px;background:#FF8C00;}
 #topBtn{right:200px;background:#555;}
-#chatBox{display:none;position:fixed;bottom:80px;right:140px;width:300px;height:400px;background:#fff;border:2px solid #FF8C00;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
+#chatBox{display:none;position:fixed;bottom:80px;right:140px;width:320px;height:400px;background:#fff;border:2px solid #FF8C00;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
 #chatBox header{background:#FF8C00;color:#fff;padding:10px;text-align:center;font-weight:bold;}
 #chatContent{padding:10px;height:300px;overflow-y:auto;}
 #userChat{width:100%;box-sizing:border-box;padding:10px;border:none;border-top:1px solid #ccc;}
 input:focus{outline:none;}
+button{padding:10px 15px;margin-top:10px;border:none;background:#ff8c00;color:#fff;border-radius:5px;cursor:pointer;}
+button:hover{background:#e57c00;}
 </style>
 </head>
 <body>
@@ -31,6 +33,7 @@ input:focus{outline:none;}
 Elite Paws & Companions
 </header>
 
+<!-- Puppies Section -->
 <section>
 <h2>Puppies</h2>
 <div class="carousel" id="puppyCarousel">
@@ -45,6 +48,7 @@ Elite Paws & Companions
 </div>
 </section>
 
+<!-- Families & Reviews Section -->
 <section>
 <h2>Families & Reviews</h2>
 <div class="families" id="familiesCarousel">
@@ -53,6 +57,7 @@ Elite Paws & Companions
 </div>
 </section>
 
+<!-- Delivery Vehicles Section -->
 <section>
 <h2>Delivery Vehicles</h2>
 <div class="vehicles" id="vehiclesCarousel">
@@ -61,6 +66,7 @@ Elite Paws & Companions
 </div>
 </section>
 
+<!-- Tracking Section -->
 <section>
 <h2>Tracking</h2>
 <input type="text" id="trackInput" placeholder="Enter your tracking code">
@@ -68,6 +74,7 @@ Elite Paws & Companions
 <p id="trackResult"></p>
 </section>
 
+<!-- Map Section -->
 <section>
 <h2>Location Map</h2>
 <div id="map" style="width:100%;height:300px;background:#ddd;text-align:center;line-height:300px;">Map Placeholder</div>
@@ -83,7 +90,7 @@ Elite Paws & Companions
 <div id="chatBtn" class="floating" onclick="toggleChat()">🧠</div>
 <div id="topBtn" class="floating" onclick="scrollToTop()">👍</div>
 
-<!-- Chat Box -->
+<!-- AI Chat Box -->
 <div id="chatBox">
   <header>AI Assistant</header>
   <div id="chatContent"></div>
@@ -91,83 +98,83 @@ Elite Paws & Companions
 </div>
 
 <script>
-// Puppies description rotation
+// Rotate Puppy Descriptions
 const puppyData=[
   {name:"Buddy","desc":"Buddy loves to play fetch and cuddle. Perfect for active families."},
   {name:"Luna","desc":"Luna is gentle and loves long naps in sunny spots."}
 ];
-let currentPuppy=0;
 function rotatePuppies(){
   puppyData.forEach((p,i)=>{
-    document.getElementById(`puppyDesc${i+1}`).innerHTML=`<b>${puppyData[i].name}</b>: ${puppyData[i].desc}`;
+    document.getElementById(`puppyDesc${i+1}`).innerHTML=`<b>${p.name}</b>: ${p.desc}`;
   });
-  currentPuppy=(currentPuppy+1)%puppyData.length;
 }
 setInterval(rotatePuppies,5000);
 rotatePuppies();
 
-// Track package simulation
+// Tracking
 function trackPackage(){
   const code=document.getElementById("trackInput").value;
   if(!code) return alert("Enter a tracking code!");
   document.getElementById("trackResult").innerText=`Tracking ${code}: Your puppy is on its way!`;
 }
 
-// Scroll to top
+// Scroll to Top
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
 
-// Floating chat toggle
+// Toggle Chat
 function toggleChat(){
   const box=document.getElementById("chatBox");
   box.style.display=box.style.display==="block"?"none":"block";
 }
 
-// AI Chat
-const aiResponses={
-  vaccinated:["Yes! All our puppies are fully vaccinated and healthy.","Absolutely! Every puppy has up-to-date shots."],
-  delivery:["We deliver worldwide safely.","Delivery usually takes 2–7 days depending on location."],
-  care:["Feed your puppy nutritious meals twice daily.","Provide love and playtime."],
-  training:["Start training early with gentle positive reinforcement.","Consistency is key! Reward good behavior."],
-  tracking:["Use your tracking code to see your puppy's location.","Tracking info is updated regularly."],
-  tips:["Puzzle toys develop intelligence.","Short daily walks keep your puppy healthy."],
-  engagement:["How is your puppy today? Any fun stories?","Have you tried teaching new commands this week?"],
-  default:["I’m not sure about that. Please contact us via WhatsApp or Email.","Our team can help you with that safely."]
+// AI Chat - Consistent answers
+const aiKnowledge = {
+  "vaccinated":"Yes! All our puppies are fully vaccinated and healthy.",
+  "delivery":"We deliver puppies safely worldwide. Your puppy will be tracked and arrive healthy.",
+  "care":"Feed your puppy nutritious meals 2–3 times daily, provide clean water, play, and love.",
+  "training":"Start training early using gentle positive reinforcement. Consistency is key.",
+  "tracking":"Use your tracking code to view your puppy's location in real-time.",
+  "legitimacy":"Elite Paws & Companions has safely delivered hundreds of happy puppies. We are professional and trustworthy."
 };
 const sensitiveKeywords=["money","payment","legal","lawsuit","refund","bank","scam","account"];
 let chatMemory=[];
+
 function chatReply(){
   const inputEl=document.getElementById("userChat");
   const content=document.getElementById("chatContent");
   const input=inputEl.value.trim().toLowerCase();
   if(!input) return;
+
   let reply="";
   if(sensitiveKeywords.some(word=>input.includes(word))){
-    reply="I’m not able to answer that directly. Contact us via WhatsApp or Email.";
-  } else if(input.includes("vaccinated")||input.includes("shots")){
-    reply=aiResponses.vaccinated[Math.floor(Math.random()*aiResponses.vaccinated.length)];
-  } else if(input.includes("deliver")||input.includes("delivery")){
-    reply=aiResponses.delivery[Math.floor(Math.random()*aiResponses.delivery.length)];
-  } else if(input.includes("care")||input.includes("health")){
-    reply=aiResponses.care[Math.floor(Math.random()*aiResponses.care.length)];
-  } else if(input.includes("train")||input.includes("training")||input.includes("command")){
-    reply=aiResponses.training[Math.floor(Math.random()*aiResponses.training.length)];
-  } else if(input.includes("track")||input.includes("tracking")){
-    reply=aiResponses.tracking[Math.floor(Math.random()*aiResponses.tracking.length)];
+    reply="I’m not able to answer that directly. Please contact us via WhatsApp or Email.";
+  } else if(input.includes("vaccinated") || input.includes("shots")){
+    reply=aiKnowledge.vaccinated;
+  } else if(input.includes("deliver") || input.includes("delivery")){
+    reply=aiKnowledge.delivery;
+  } else if(input.includes("care") || input.includes("health")){
+    reply=aiKnowledge.care;
+  } else if(input.includes("train") || input.includes("training") || input.includes("command")){
+    reply=aiKnowledge.training;
+  } else if(input.includes("track") || input.includes("tracking")){
+    reply=aiKnowledge.tracking;
   } else {
-    if(chatMemory.length<5){
-      reply=aiResponses.engagement[Math.floor(Math.random()*aiResponses.engagement.length)]+" "+aiResponses.tips[Math.floor(Math.random()*aiResponses.tips.length)];
-    } else {
-      reply=aiResponses.default[Math.floor(Math.random()*aiResponses.default.length)];
-    }
+    reply=aiKnowledge.legitimacy;
   }
+
   chatMemory.push({user:input,bot:reply});
   if(chatMemory.length>10) chatMemory.shift();
+
   content.innerHTML+=`<p><b>You:</b> ${inputEl.value}</p>`;
   content.innerHTML+=`<p><b>Bot:</b> ${reply}</p>`;
+
   inputEl.value="";
   content.scrollTop=content.scrollHeight;
 }
-document.getElementById("userChat").addEventListener("keydown",function(e){if(e.key==="Enter"){chatReply();}});
+
+document.getElementById("userChat").addEventListener("keydown",function(e){
+  if(e.key==="Enter"){ chatReply(); }
+});
 </script>
 
 </body>
