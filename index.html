@@ -7,29 +7,32 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 <style>
-body {margin:0;font-family:Arial,sans-serif;background:#f4f4f4;}
-header{background:#ff8c00;color:#fff;padding:15px;text-align:center;font-size:2em;font-weight:bold;position:sticky;top:0;z-index:1000;}
-#logo{height:50px;vertical-align:middle;margin-right:10px;}
-nav{display:flex;justify-content:center;gap:20px;background:#ffb84d;padding:10px;position:sticky;top:60px;z-index:999;}
-nav a{text-decoration:none;color:#fff;font-weight:bold;}
-section{padding:30px 20px;}
-h2{margin-bottom:15px;color:#ff8c00;}
-.carousel, .families, .vehicles{display:flex;overflow-x:auto;gap:15px;padding-bottom:15px;scroll-behavior:smooth;}
-.carousel img, .families img, .vehicles img{height:200px;border-radius:10px;flex-shrink:0;}
-.description{background:#fff;padding:10px;border-radius:10px;margin-top:5px;min-width:200px;}
-.floating{position:fixed;right:20px;width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:1.5em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
-#topBtn{bottom:20px;background:#555;}
-#whatsapp{bottom:80px;background:#25D366;}
-#email{bottom:140px;background:#0072C6;}
-#chatBtn{bottom:200px;background:#FF8C00;}
-#chatBox{display:none;position:fixed;bottom:260px;right:20px;width:320px;height:400px;background:#fff;border:2px solid #FF8C00;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.3);}
-#chatBox header{background:#FF8C00;color:#fff;padding:10px;text-align:center;font-weight:bold;}
-#chatContent{padding:10px;height:300px;overflow-y:auto;}
-#userChat{width:100%;box-sizing:border-box;padding:10px;border:none;border-top:1px solid #ccc;}
-input:focus{outline:none;}
-button{padding:10px 15px;margin-top:10px;border:none;background:#ff8c00;color:#fff;border-radius:5px;cursor:pointer;}
-button:hover{background:#e57c00;}
-input, select{padding:5px;margin:5px;border-radius:5px;border:1px solid #ccc;}
+/* --- General Styling --- */
+body {margin:0; font-family:Arial, sans-serif; background:#f4f4f4;}
+header {background:#ff8c00; color:#fff; padding:15px; text-align:center; font-size:2em; font-weight:bold; position:sticky; top:0; z-index:1000;}
+#logo {height:50px; vertical-align:middle; margin-right:10px;}
+nav {display:flex; justify-content:center; gap:20px; background:#ffb84d; padding:10px; position:sticky; top:60px; z-index:999;}
+nav a {text-decoration:none; color:#fff; font-weight:bold;}
+section {padding:30px 20px;}
+h2 {margin-bottom:15px; color:#ff8c00;}
+.carousel, .families, .vehicles {display:flex; overflow-x:auto; gap:15px; padding-bottom:15px; scroll-behavior:smooth;}
+.carousel img, .families img, .vehicles img {height:200px; border-radius:10px; flex-shrink:0;}
+.description {background:#fff; padding:10px; border-radius:10px; margin-top:5px; min-width:220px;}
+/* Floating buttons */
+.floating {position:fixed; right:20px; width:50px; height:50px; border-radius:50%; display:flex; justify-content:center; align-items:center; color:#fff; font-size:1.5em; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+#topBtn {bottom:20px; background:#555;}
+#whatsapp {bottom:80px; background:#25D366;}
+#email {bottom:140px; background:#0072C6;}
+#chatBtn {bottom:200px; background:#FF8C00;}
+/* Chat box */
+#chatBox {display:none; position:fixed; bottom:260px; right:20px; width:320px; height:400px; background:#fff; border:2px solid #FF8C00; border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.3);}
+#chatBox header {background:#FF8C00; color:#fff; padding:10px; text-align:center; font-weight:bold;}
+#chatContent {padding:10px; height:300px; overflow-y:auto;}
+#userChat {width:100%; box-sizing:border-box; padding:10px; border:none; border-top:1px solid #ccc;}
+input:focus {outline:none;}
+button {padding:10px 15px; margin-top:10px; border:none; background:#ff8c00; color:#fff; border-radius:5px; cursor:pointer;}
+button:hover {background:#e57c00;}
+input, select {padding:5px; margin:5px; border-radius:5px; border:1px solid #ccc;}
 </style>
 </head>
 <body>
@@ -112,8 +115,9 @@ Elite Paws & Companions
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
 <script>
-// ----------------- Image Data -----------------
+// ---------- Image Data ----------
 const puppyData = [
   {img:"https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300", name:"Buddy", desc:"Loves to play fetch and cuddle."},
   {img:"https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300", name:"Luna", desc:"Gentle and loves long naps."},
@@ -151,7 +155,7 @@ const vehicleImages = [
   "https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b"
 ];
 
-// ----------------- Populate Carousels -----------------
+// ---------- Populate Carousels ----------
 function populateCarousel(containerId, images, data=null){
   const container = document.getElementById(containerId);
   container.innerHTML = "";
@@ -171,11 +175,11 @@ window.onload=function(){
   populateCarousel("vehiclesCarousel", vehicleImages);
 };
 
-// ----------------- Floating Button Functions -----------------
+// ---------- Floating Button Functions ----------
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
 function toggleChat(){const box=document.getElementById("chatBox"); box.style.display=box.style.display==="block"?"none":"block";}
 
-// ----------------- AI Chat -----------------
+// ---------- AI Chat ----------
 const aiKnowledge = {
   "vaccinated":"Yes! All our puppies are fully vaccinated and healthy.",
   "delivery":"We deliver puppies safely worldwide. Your puppy will be tracked and arrive healthy.",
@@ -216,7 +220,7 @@ function chatReply(){
 }
 document.getElementById("userChat").addEventListener("keydown",function(e){if(e.key==="Enter"){chatReply();}});
 
-// ----------------- Tracking -----------------
+// ---------- Tracking System ----------
 const sampleTrackingData = {
   "TRK-983472CM": {
     sender: {name:"Elite Paws", company:"Elite Paws & Companions", origin:"Douala, CM"},
@@ -269,11 +273,4 @@ function showTracking(){
   window.trackingMap = L.map('map').setView(data.route.dispatch, 6);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'&copy; OpenStreetMap contributors'}).addTo(window.trackingMap);
 
-  L.Routing.control({
-    waypoints:[
-      L.latLng(data.route.dispatch[0], data.route.dispatch[1]),
-      L.latLng(data.route.client[0], data.route.client[1])
-    ],
-    lineOptions:{styles:[{color:'blue',weight:5}]},
-    routeWhileDragging:false,
-    show:false
+  // Routing with duration
