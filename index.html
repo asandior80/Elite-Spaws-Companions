@@ -4,14 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elite Paws & Companions</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 <style>
-body {font-family: Arial,sans-serif;margin:0;padding:0;background:#f4f4f4;}
-header{background:#ff8c00;color:#fff;padding:20px;text-align:center;font-size:2em;font-weight:bold;}
-#logo{height:60px;vertical-align:middle;margin-right:10px;}
-section{padding:20px;}
-.carousel, .families, .vehicles{display:flex;overflow-x:auto;gap:15px;padding-bottom:15px;}
+body {margin:0;font-family:Arial,sans-serif;background:#f4f4f4;}
+header{background:#ff8c00;color:#fff;padding:15px;text-align:center;font-size:2em;font-weight:bold;position:sticky;top:0;z-index:1000;}
+#logo{height:50px;vertical-align:middle;margin-right:10px;}
+nav{display:flex;justify-content:center;gap:20px;background:#ffb84d;padding:10px;position:sticky;top:60px;z-index:999;}
+nav a{text-decoration:none;color:#fff;font-weight:bold;}
+section{padding:30px 20px;}
+h2{margin-bottom:15px;color:#ff8c00;}
+.carousel, .families, .vehicles{display:flex;overflow-x:auto;gap:15px;padding-bottom:15px;scroll-behavior:smooth;}
 .carousel img, .families img, .vehicles img{height:200px;border-radius:10px;flex-shrink:0;}
-.description{background:#fff;padding:15px;border-radius:10px;margin-top:10px;}
+.description{background:#fff;padding:10px;border-radius:10px;margin-top:5px;min-width:200px;}
 .floating{position:fixed;bottom:20px;width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:1.5em;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
 #whatsapp{right:20px;background:#25D366;}
 #email{right:80px;background:#0072C6;}
@@ -33,51 +38,68 @@ button:hover{background:#e57c00;}
 Elite Paws & Companions
 </header>
 
+<nav>
+<a href="#puppies">Puppies</a>
+<a href="#families">Families</a>
+<a href="#vehicles">Delivery</a>
+<a href="#tracking">Tracking</a>
+<a href="#contact">Contact/AI</a>
+</nav>
+
 <!-- Puppies Section -->
-<section>
+<section id="puppies">
 <h2>Puppies</h2>
 <div class="carousel" id="puppyCarousel">
-  <div class="puppyItem">
-    <img src="https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300" alt="Puppy">
-    <div class="description" id="puppyDesc1"></div>
-  </div>
-  <div class="puppyItem">
-    <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300" alt="Puppy">
-    <div class="description" id="puppyDesc2"></div>
-  </div>
+  <div class="puppyItem"><img src="https://images.unsplash.com/photo-1601758123927-32d8c0b3c918?crop=entropy&fit=crop&w=400&h=300"><div class="description" id="puppyDesc1"></div></div>
+  <div class="puppyItem"><img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?crop=entropy&fit=crop&w=400&h=300"><div class="description" id="puppyDesc2"></div></div>
+  <div class="puppyItem"><img src="https://images.unsplash.com/photo-1558788353-f76d92427f16?crop=entropy&fit=crop&w=400&h=300"><div class="description" id="puppyDesc3"></div></div>
 </div>
 </section>
 
 <!-- Families & Reviews Section -->
-<section>
+<section id="families">
 <h2>Families & Reviews</h2>
 <div class="families" id="familiesCarousel">
-  <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?crop=entropy&fit=crop&w=300&h=200" alt="Family">
-  <img src="https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e?crop=entropy&fit=crop&w=300&h=200" alt="Family">
+  <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6">
+  <img src="https://images.unsplash.com/photo-1612197528274-2b8e0b58c03e">
+  <img src="https://images.unsplash.com/photo-1603319672322-6a0f3b94bc5d">
 </div>
 </section>
 
 <!-- Delivery Vehicles Section -->
-<section>
+<section id="vehicles">
 <h2>Delivery Vehicles</h2>
 <div class="vehicles" id="vehiclesCarousel">
-  <img src="https://images.unsplash.com/photo-1558980664-10e71726d9c8?crop=entropy&fit=crop&w=400&h=200" alt="Truck">
-  <img src="https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b?crop=entropy&fit=crop&w=400&h=200" alt="Plane">
+  <img src="https://images.unsplash.com/photo-1558980664-10e71726d9c8">
+  <img src="https://images.unsplash.com/photo-1581091215366-7b06b2f1e89b">
 </div>
 </section>
 
-<!-- Tracking Section -->
-<section>
-<h2>Tracking</h2>
-<input type="text" id="trackInput" placeholder="Enter your tracking code">
-<button onclick="trackPackage()">Track</button>
+<!-- Tracking + Map Section -->
+<section id="tracking">
+<h2>Track Your Puppy</h2>
+<input type="text" id="dispatchLat" placeholder="Dispatch Latitude">
+<input type="text" id="dispatchLon" placeholder="Dispatch Longitude">
+<input type="text" id="clientLat" placeholder="Client Latitude">
+<input type="text" id="clientLon" placeholder="Client Longitude">
+<input type="text" id="trackingCode" placeholder="Tracking Code">
+<button onclick="createTracking()">Create Tracking</button>
 <p id="trackResult"></p>
+<div id="map" style="width:100%;height:400px;"></div>
 </section>
 
-<!-- Map Section -->
-<section>
-<h2>Location Map</h2>
-<div id="map" style="width:100%;height:300px;background:#ddd;text-align:center;line-height:300px;">Map Placeholder</div>
+<!-- Contact / AI Chat Section -->
+<section id="contact">
+<h2>Contact & AI Chat</h2>
+<p>WhatsApp or Email anytime for questions:</p>
+<p>WhatsApp: +1 (365) 907-3536</p>
+<p>Email: nickpatrick887@gmail.com</p>
+
+<div id="chatBox">
+  <header>AI Assistant 🧠</header>
+  <div id="chatContent"></div>
+  <input type="text" id="userChat" placeholder="Ask a question">
+</div>
 </section>
 
 <!-- Floating Buttons -->
@@ -90,33 +112,23 @@ Elite Paws & Companions
 <div id="chatBtn" class="floating" onclick="toggleChat()">🧠</div>
 <div id="topBtn" class="floating" onclick="scrollToTop()">👍</div>
 
-<!-- AI Chat Box -->
-<div id="chatBox">
-  <header>AI Assistant</header>
-  <div id="chatContent"></div>
-  <input type="text" id="userChat" placeholder="Ask a question">
-</div>
-
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 <script>
-// Rotate Puppy Descriptions
+// Puppy Rotating Names & Descriptions
 const puppyData=[
   {name:"Buddy","desc":"Buddy loves to play fetch and cuddle. Perfect for active families."},
-  {name:"Luna","desc":"Luna is gentle and loves long naps in sunny spots."}
+  {name:"Luna","desc":"Luna is gentle and loves long naps in sunny spots."},
+  {name:"Charlie","desc":"Charlie is adventurous and loves exploring."}
 ];
 function rotatePuppies(){
   puppyData.forEach((p,i)=>{
-    document.getElementById(`puppyDesc${i+1}`).innerHTML=`<b>${p.name}</b>: ${p.desc}`;
+    let descEl=document.getElementById(`puppyDesc${i+1}`);
+    if(descEl) descEl.innerHTML=`<b>${p.name}</b>: ${p.desc}`;
   });
 }
 setInterval(rotatePuppies,5000);
 rotatePuppies();
-
-// Tracking
-function trackPackage(){
-  const code=document.getElementById("trackInput").value;
-  if(!code) return alert("Enter a tracking code!");
-  document.getElementById("trackResult").innerText=`Tracking ${code}: Your puppy is on its way!`;
-}
 
 // Scroll to Top
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
@@ -127,7 +139,7 @@ function toggleChat(){
   box.style.display=box.style.display==="block"?"none":"block";
 }
 
-// AI Chat - Consistent answers
+// AI Chat
 const aiKnowledge = {
   "vaccinated":"Yes! All our puppies are fully vaccinated and healthy.",
   "delivery":"We deliver puppies safely worldwide. Your puppy will be tracked and arrive healthy.",
@@ -138,13 +150,11 @@ const aiKnowledge = {
 };
 const sensitiveKeywords=["money","payment","legal","lawsuit","refund","bank","scam","account"];
 let chatMemory=[];
-
 function chatReply(){
   const inputEl=document.getElementById("userChat");
   const content=document.getElementById("chatContent");
   const input=inputEl.value.trim().toLowerCase();
   if(!input) return;
-
   let reply="";
   if(sensitiveKeywords.some(word=>input.includes(word))){
     reply="I’m not able to answer that directly. Please contact us via WhatsApp or Email.";
@@ -161,20 +171,38 @@ function chatReply(){
   } else {
     reply=aiKnowledge.legitimacy;
   }
-
   chatMemory.push({user:input,bot:reply});
   if(chatMemory.length>10) chatMemory.shift();
-
   content.innerHTML+=`<p><b>You:</b> ${inputEl.value}</p>`;
   content.innerHTML+=`<p><b>Bot:</b> ${reply}</p>`;
-
   inputEl.value="";
   content.scrollTop=content.scrollHeight;
 }
+document.getElementById("userChat").addEventListener("keydown",function(e){if(e.key==="Enter"){chatReply();}});
 
-document.getElementById("userChat").addEventListener("keydown",function(e){
-  if(e.key==="Enter"){ chatReply(); }
-});
+// Tracking + Map
+let map = L.map('map').setView([0, 0], 2);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+let routingControl = null;
+function createTracking(){
+  const dLat = parseFloat(document.getElementById("dispatchLat").value);
+  const dLon = parseFloat(document.getElementById("dispatchLon").value);
+  const cLat = parseFloat(document.getElementById("clientLat").value);
+  const cLon = parseFloat(document.getElementById("clientLon").value);
+  const code = document.getElementById("trackingCode").value.trim();
+  if(isNaN(dLat) || isNaN(dLon) || isNaN(cLat) || isNaN(cLon) || !code){
+    return alert("Enter all locations and tracking code!");
+  }
+  document.getElementById("trackResult").innerText = `Tracking Code Created: ${code}`;
+  if(routingControl) map.removeControl(routingControl);
+  routingControl = L.Routing.control({
+    waypoints: [L.latLng(dLat,dLon), L.latLng(cLat,cLon)],
+    routeWhileDragging: false,
+    show: false,
+    lineOptions: {styles:[{color:'blue',weight:5}]}
+  }).addTo(map);
+  map.fitBounds([[Math.min(dLat,cLat),Math.min(dLon,cLon)],[Math.max(dLat,cLat),Math.max(dLon,cLon)]]);
+}
 </script>
 
 </body>
