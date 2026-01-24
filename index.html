@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elite Paws & Companion</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Leaflet.js CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <style>
 /* ===== GENERAL STYLES ===== */
 * {margin:0; padding:0; box-sizing:border-box;}
@@ -61,15 +62,9 @@ nav a {font-weight:bold;}
 .carousel-btn.next {right:10px;}
 
 /* ===== TRACKING MAP ===== */
-.map {background:#dbe9ff; padding:20px; border-radius:10px; text-align:center; position:relative; height:200px; overflow:hidden; margin-top:20px;}
-.route {position:absolute; left:10%; top:50%; height:8px; width:0; background:blue; border-radius:4px; transform:translateY(-50%);}
-.stage {position:absolute; top:40%; width:20px; height:20px; border-radius:50%; background:#0a3cff; text-align:center; color:white; font-size:12px; line-height:20px; cursor:pointer; transition: transform 0.2s;}
-.stage:hover {transform: scale(1.4);}
-.stage::after {content: attr(data-tooltip); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%); background: #0a3cff; color: white; padding: 5px 8px; border-radius: 6px; font-size: 10px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 10;}
-.stage:hover::after {opacity: 1;}
-.stage1 { left:10%; }
-.stage2 { left:45%; }
-.stage3 { left:80%; }
+.map {background:#dbe9ff; padding:20px; border-radius:10px; margin-top:20px; height:400px;}
+.tracking-entry {margin-bottom:20px;}
+.tracking-list {margin-top:20px;}
 
 /* ===== FLOATING BUTTONS ===== */
 .floating-btn {position:fixed; right:20px; padding:15px; border-radius:50%; color:white; font-size:20px; text-align:center; cursor:pointer; z-index:100;}
@@ -101,11 +96,9 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
         </stop>
       </linearGradient>
     </defs>
-
     <circle cx="20" cy="20" r="6" fill="url(#shineGrad)"/>
     <circle cx="44" cy="20" r="6" fill="url(#shineGrad)"/>
     <circle cx="32" cy="44" r="6" fill="url(#shineGrad)"/>
-
     <line x1="20" y1="20" x2="32" y2="44" stroke="url(#shineGrad)" stroke-width="3"/>
     <line x1="44" y1="20" x2="32" y2="44" stroke="url(#shineGrad)" stroke-width="3"/>
   </svg>
@@ -115,12 +108,23 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
 
 <!-- ===== NAVIGATION ===== -->
 <nav>
+  <a href="#about">About</a>
   <a href="#puppies">Puppies</a>
   <a href="#families">Families</a>
   <a href="#vehicles">Delivery</a>
   <a href="#tracking">Tracking</a>
-  <a href="#contact">Contact / AI</a>
+  <a href="#faq">FAQs</a>
+  <a href="#blog">Blog/Reviews</a>
+  <a href="#contact">Contact/AI</a>
 </nav>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section id="about" class="card">
+<h2>About Elite Paws & Companion</h2>
+<p>Elite Paws & Companion has been serving pet lovers for over 5 years. We specialize in connecting families with healthy, happy puppies, providing delivery services with utmost care, and ensuring a safe, professional pet handling experience. Our mission is to make pet ownership accessible, trustworthy, and joyful. Each of our puppies comes with a full care history and personalized attention to ensure a smooth transition to their new family.</p>
+<img src="https://images.unsplash.com/photo-1601979031925-424e53b6caaa" alt="Happy Puppy" style="margin-top:20px;">
+<p>We also provide comprehensive delivery services using professional couriers, ensuring your new companion reaches you safely. Our team carefully monitors each step of the process, offering real-time tracking for peace of mind. At Elite Paws & Companion, your pet’s happiness is our priority.</p>
+</section>
 
 <!-- ===== PUPPIES CAROUSEL ===== -->
 <section id="puppies" class="card">
@@ -154,17 +158,44 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
 
 <!-- ===== TRACKING SECTION ===== -->
 <section id="tracking" class="card">
-<h2>Track Your Delivery</h2>
-<input type="text" id="trackingInput" placeholder="Enter your tracking code">
-<button onclick="trackCode()">Track</button>
-<p id="trackingResult"></p>
+<h2>Track Your Delivery / Generate Tracking Code</h2>
 
-<div class="map">
-  <div class="route" id="route"></div>
-  <div class="stage stage1" data-tooltip="Picked up by Seller">S</div>
-  <div class="stage stage2" data-tooltip="With Courier">C</div>
-  <div class="stage stage3" data-tooltip="Near Destination / Delivered">B</div>
-  <p id="mapInfo">Your delivery route will appear here after entering tracking code.</p>
+<div class="tracking-entry">
+<label>Seller / Your Location:</label>
+<input type="text" id="sellerLocation" placeholder="Enter your address">
+<label>Client Name:</label>
+<input type="text" id="clientName" placeholder="Client full name">
+<label>Client Location:</label>
+<input type="text" id="clientLocation" placeholder="Client address / city">
+<label>Order Details:</label>
+<input type="text" id="orderDetails" placeholder="Description of the order">
+<button onclick="addTracking()">Generate Tracking Code</button>
+</div>
+
+<div class="tracking-list" id="trackingList"></div>
+
+<div id="map" class="map"></div>
+<p id="mapInfo"></p>
+</section>
+
+<!-- ===== FAQs SECTION ===== -->
+<section id="faq" class="card">
+<h2>FAQs</h2>
+<p><strong>Q1: How do you ensure puppy health?</strong></p>
+<p>A: Each puppy is examined by a certified veterinarian, receives vaccinations, and is carefully monitored from birth.</p>
+<p><strong>Q2: Can I track my order in real-time?</strong></p>
+<p>A: Yes! Once you generate a tracking code, the map will show your delivery in real-time with estimated travel hours.</p>
+<p><strong>Q3: How do you handle deliveries?</strong></p>
+<p>A: We use professional couriers with experience in pet handling. Every step is monitored for safety and comfort.</p>
+</section>
+
+<!-- ===== BLOG / REVIEWS SECTION ===== -->
+<section id="blog" class="card">
+<h2>Blog & Reviews</h2>
+<div class="gallery">
+<div class="card"><img src="https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c" alt="Review1"><p><strong>Review:</strong> Luna arrived healthy and happy. Amazing service with great communication.</p></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1525253086316-d0c936c814f8" alt="Review2"><p><strong>Review:</strong> Max was playful and friendly. Delivery was smooth and tracked easily.</p></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86" alt="Review3"><p><strong>Blog:</strong> Tips for first-time puppy owners, including nutrition, toys, and care routines.</p></div>
 </div>
 </section>
 
@@ -181,7 +212,9 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
 </section>
 
 <!-- ===== FLOATING BUTTONS ===== -->
-<div class="floating-btn" id="btn-whatsapp" onclick="window.open('https://wa.me/13659073536','_blank')">🗨</div>
+<div class="floating-btn" id="btn-whatsapp" onclick="window.open('https://wa.me/13659073536','_blank')">
+  <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" style="width:24px; vertical-align:middle;">
+</div>
 <div class="floating-btn" id="btn-email" onclick="window.location.href='mailto:nickpatrick887@gmail.com'">📧</div>
 <div class="floating-btn" id="btn-ai" onclick="toggleAI()">🤖</div>
 <div class="floating-btn" id="btn-scroll" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️</div>
@@ -190,135 +223,12 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
 <p>© Elite Paws & Companion | Trusted Pet Handling & Delivery</p>
 </footer>
 
+<!-- Leaflet.js JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 // ===== CAROUSEL DATA =====
-const puppies = [
-  {name:"Luna",desc:"Calm and affectionate.",url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},
-  {name:"Max",desc:"Energetic and confident.",url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},
-  {name:"Bella",desc:"Curious and playful.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},
-  {name:"Rocky",desc:"Strong-spirited and loyal.",url:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b"},
-  {name:"Milo",desc:"Alert and friendly.",url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},
-  {name:"Daisy",desc:"Gentle and nurturing.",url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},
-  {name:"Leo",desc:"Confident and patient.",url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},
-  {name:"Zara",desc:"Graceful and attentive.",url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},
-  {name:"Shadow",desc:"Calm and observant.",url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},
-  {name:"Nova",desc:"Balanced and family-ready.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"}
-];
+const puppies=[{name:"Luna",desc:"Calm and affectionate puppy, loves cuddles and playtime.",url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},{name:"Max",desc:"Energetic and confident puppy, enjoys outdoor activities.",url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{name:"Bella",desc:"Curious and playful, great for families.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},{name:"Rocky",desc:"Strong-spirited and loyal puppy, ideal companion.",url:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b"},{name:"Milo",desc:"Alert and friendly, enjoys learning tricks.",url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},{name:"Daisy",desc:"Gentle and nurturing puppy, loves children.",url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},{name:"Leo",desc:"Confident and patient, enjoys walks and exploration.",url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},{name:"Zara",desc:"Graceful and attentive, adapts well to new environments.",url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},{name:"Shadow",desc:"Calm and observant, perfect indoor companion.",url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},{name:"Nova",desc:"Balanced and family-ready, very friendly.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"}];
 
-const families = [
-  {url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},
-  {url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},
-  {url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},
-  {url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},
-  {url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},
-  {url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},
-  {url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},
-  {url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},
-  {url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},
-  {url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"}
-];
+const families=[{url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},{url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},{url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},{url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},{url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},{url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},{url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},{url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"}];
 
-const vehicles = [
-  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
-  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
-  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
-  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
-  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
-  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
-  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
-  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
-  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
-  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"}
-];
-
-// ===== LOAD CAROUSELS =====
-function loadCarousel(slideId, data){
-  const slide = document.getElementById(slideId);
-  slide.innerHTML = "";
-  // Shuffle array
-  data.sort(()=>0.5-Math.random());
-  data.forEach(d=>{
-    const div = document.createElement("div");
-    div.className = "card";
-    if(d.name && d.desc){
-      div.innerHTML = `<img src="${d.url}" alt="${d.name}"><h3>${d.name}</h3><p>${d.desc}</p>`;
-    } else {
-      div.innerHTML = `<img src="${d.url}">`;
-    }
-    slide.appendChild(div);
-  });
-}
-
-let indices = {puppies:0,families:0,vehicles:0};
-function nextSlide(carousel){
-  const slide = document.getElementById(carousel+"Slide");
-  indices[carousel] = (indices[carousel]+1) % slide.children.length;
-  slide.style.transform = `translateX(-${indices[carousel]*270}px)`;
-}
-function prevSlide(carousel){
-  const slide = document.getElementById(carousel+"Slide");
-  indices[carousel] = (indices[carousel]-1 + slide.children.length) % slide.children.length;
-  slide.style.transform = `translateX(-${indices[carousel]*270}px)`;
-}
-
-window.onload = function(){
-  loadCarousel("puppiesSlide", puppies);
-  loadCarousel("familiesSlide", families);
-  loadCarousel("vehiclesSlide", vehicles);
-};
-
-// ===== TRACKING FUNCTION =====
-function trackCode(){
-  const val = document.getElementById("trackingInput").value.trim();
-  const trackingResult = document.getElementById("trackingResult");
-  const mapInfo = document.getElementById("mapInfo");
-  const route = document.getElementById("route");
-  if(!val){alert("Enter tracking code"); return;}
-  
-  trackingResult.innerText = `Tracking Code: ${val}\nStatus: Preparing...`;
-  route.style.width = "0%";
-  
-  const stages = [
-    {percent:25,status:"Picked up by Seller"},
-    {percent:50,status:"With Courier"},
-    {percent:75,status:"Near Destination"},
-    {percent:100,status:"Delivered"}
-  ];
-  
-  let i = 0;
-  const interval = setInterval(()=>{
-    if(i>=stages.length){clearInterval(interval); trackingResult.innerText+="\nDelivery Completed ✅"; return;}
-    route.style.width = stages[i].percent+"%";
-    trackingResult.innerText = `Tracking Code: ${val}\nStatus: ${stages[i].status}`;
-    i++;
-  },1000);
-}
-
-// ===== AI CHAT =====
-function toggleAI(){
-  const box = document.getElementById("aiChatBox");
-  box.style.display = box.style.display==="block"?"none":"block";
-}
-
-function sendAIMessage(){
-  const input = document.getElementById("aiInput");
-  const val = input.value.trim();
-  if(!val) return;
-  const messages = document.getElementById("aiMessages");
-  const msgDiv = document.createElement("div");
-  msgDiv.className = "ai-message";
-  msgDiv.innerText = val;
-  messages.appendChild(msgDiv);
-  input.value = "";
-  
-  // Simple polite AI response
-  setTimeout(()=>{
-    const aiDiv = document.createElement("div");
-    aiDiv.className = "ai-message";
-    aiDiv.style.background="#ff9800";
-    aiDiv.innerText = `Hello! Thank you for your message. We received: "${val}". We will assist you politely and promptly.`;
-    messages.appendChild(aiDiv);
-    messages.scrollTop = messages.scrollHeight;
-  },500);
-}
-</script>
+const vehicles=[{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images
