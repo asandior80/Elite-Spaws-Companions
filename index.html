@@ -192,41 +192,133 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
 
 <script>
 // ===== CAROUSEL DATA =====
-const puppies=[{name:"Luna",desc:"Calm and affectionate.",url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},{name:"Max",desc:"Energetic and confident.",url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{name:"Bella",desc:"Curious and playful.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},{name:"Rocky",desc:"Strong-spirited and loyal.",url:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b"},{name:"Milo",desc:"Alert and friendly.",url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},{name:"Daisy",desc:"Gentle and nurturing.",url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},{name:"Leo",desc:"Confident and patient.",url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},{name:"Zara",desc:"Graceful and attentive.",url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},{name:"Shadow",desc:"Calm and observant.",url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},{name:"Nova",desc:"Balanced and family-ready.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"}];
-const families=[{url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},{url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},{url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},{url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},{url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},{url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},{url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},{url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"}];
-const vehicles=[{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"}];
+const puppies = [
+  {name:"Luna",desc:"Calm and affectionate.",url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},
+  {name:"Max",desc:"Energetic and confident.",url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},
+  {name:"Bella",desc:"Curious and playful.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},
+  {name:"Rocky",desc:"Strong-spirited and loyal.",url:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b"},
+  {name:"Milo",desc:"Alert and friendly.",url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},
+  {name:"Daisy",desc:"Gentle and nurturing.",url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},
+  {name:"Leo",desc:"Confident and patient.",url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},
+  {name:"Zara",desc:"Graceful and attentive.",url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},
+  {name:"Shadow",desc:"Calm and observant.",url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},
+  {name:"Nova",desc:"Balanced and family-ready.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"}
+];
 
-// ===== HELPER FUNCTIONS =====
-function loadCarousel(slideId,data){
-  const slide=document.getElementById(slideId);
-  slide.innerHTML="";
+const families = [
+  {url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},
+  {url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},
+  {url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},
+  {url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},
+  {url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},
+  {url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},
+  {url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},
+  {url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},
+  {url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},
+  {url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"}
+];
+
+const vehicles = [
+  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
+  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
+  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
+  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
+  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
+  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
+  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
+  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},
+  {url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},
+  {url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"}
+];
+
+// ===== LOAD CAROUSELS =====
+function loadCarousel(slideId, data){
+  const slide = document.getElementById(slideId);
+  slide.innerHTML = "";
+  // Shuffle array
   data.sort(()=>0.5-Math.random());
   data.forEach(d=>{
-    const div=document.createElement("div");
-    div.className="card";
-    div.innerHTML=d.name?`<img src="${d.url}"><h3>${d.name}</h3><p>${d.desc}</p>`:`<img src="${d.url}">`;
+    const div = document.createElement("div");
+    div.className = "card";
+    if(d.name && d.desc){
+      div.innerHTML = `<img src="${d.url}" alt="${d.name}"><h3>${d.name}</h3><p>${d.desc}</p>`;
+    } else {
+      div.innerHTML = `<img src="${d.url}">`;
+    }
     slide.appendChild(div);
   });
 }
-let indices={puppies:0,families:0,vehicles:0};
-function nextSlide(carousel){const slide=document.getElementById(carousel+"Slide");indices[carousel]=(indices[carousel]+1)%slide.children.length;slide.style.transform=`translateX(-${indices[carousel]*270}px)`;}
-function prevSlide(carousel){const slide=document.getElementById(carousel+"Slide");indices[carousel]=(indices[carousel]-1+slide.children.length)%slide.children.length;slide.style.transform=`translateX(-${indices[carousel]*270}px)`;}
-window.onload=function(){loadCarousel("puppiesSlide",puppies);loadCarousel("familiesSlide",families);loadCarousel("vehiclesSlide",vehicles);};
 
-// ===== TRACKING =====
+let indices = {puppies:0,families:0,vehicles:0};
+function nextSlide(carousel){
+  const slide = document.getElementById(carousel+"Slide");
+  indices[carousel] = (indices[carousel]+1) % slide.children.length;
+  slide.style.transform = `translateX(-${indices[carousel]*270}px)`;
+}
+function prevSlide(carousel){
+  const slide = document.getElementById(carousel+"Slide");
+  indices[carousel] = (indices[carousel]-1 + slide.children.length) % slide.children.length;
+  slide.style.transform = `translateX(-${indices[carousel]*270}px)`;
+}
+
+window.onload = function(){
+  loadCarousel("puppiesSlide", puppies);
+  loadCarousel("familiesSlide", families);
+  loadCarousel("vehiclesSlide", vehicles);
+};
+
+// ===== TRACKING FUNCTION =====
 function trackCode(){
-  const val=document.getElementById("trackingInput").value.trim();
-  if(!val){alert("Enter code"); return;}
-  const trackingResult=document.getElementById("trackingResult");
-  const mapInfo=document.getElementById("mapInfo");
-  const route=document.getElementById("route");
-  trackingResult.innerText="Tracking Code: "+val+"\nStatus: Preparing...";
-  mapInfo.innerText="Route: Seller → Courier → Buyer";
-  route.style.width="0%";
-  const stages=[{percent:25,status:"Picked up by Seller"},{percent:50,status:"With Courier"},{percent:75,status:"Near Destination"},{percent:100,status:"Delivered"}];
-  let i=0;
-  const interval=setInterval(()=>{
-    if(i>=stages.length){clearInterval(interval);trackingResult.innerText+="\nDelivery Completed ✅";return;}
-    const stage=stages[i];
-    route.style.width=stage.percent+"%";
-    trackingResult.innerText
+  const val = document.getElementById("trackingInput").value.trim();
+  const trackingResult = document.getElementById("trackingResult");
+  const mapInfo = document.getElementById("mapInfo");
+  const route = document.getElementById("route");
+  if(!val){alert("Enter tracking code"); return;}
+  
+  trackingResult.innerText = `Tracking Code: ${val}\nStatus: Preparing...`;
+  route.style.width = "0%";
+  
+  const stages = [
+    {percent:25,status:"Picked up by Seller"},
+    {percent:50,status:"With Courier"},
+    {percent:75,status:"Near Destination"},
+    {percent:100,status:"Delivered"}
+  ];
+  
+  let i = 0;
+  const interval = setInterval(()=>{
+    if(i>=stages.length){clearInterval(interval); trackingResult.innerText+="\nDelivery Completed ✅"; return;}
+    route.style.width = stages[i].percent+"%";
+    trackingResult.innerText = `Tracking Code: ${val}\nStatus: ${stages[i].status}`;
+    i++;
+  },1000);
+}
+
+// ===== AI CHAT =====
+function toggleAI(){
+  const box = document.getElementById("aiChatBox");
+  box.style.display = box.style.display==="block"?"none":"block";
+}
+
+function sendAIMessage(){
+  const input = document.getElementById("aiInput");
+  const val = input.value.trim();
+  if(!val) return;
+  const messages = document.getElementById("aiMessages");
+  const msgDiv = document.createElement("div");
+  msgDiv.className = "ai-message";
+  msgDiv.innerText = val;
+  messages.appendChild(msgDiv);
+  input.value = "";
+  
+  // Simple polite AI response
+  setTimeout(()=>{
+    const aiDiv = document.createElement("div");
+    aiDiv.className = "ai-message";
+    aiDiv.style.background="#ff9800";
+    aiDiv.innerText = `Hello! Thank you for your message. We received: "${val}". We will assist you politely and promptly.`;
+    messages.appendChild(aiDiv);
+    messages.scrollTop = messages.scrollHeight;
+  },500);
+}
+</script>
