@@ -1,230 +1,243 @@
-    <a href="#puppies">Puppies & Dogs</a>
-    <a href="#contact">Contact</a>
-    <a href="#delivery">Delivery & Tracking</a>
-    <a href="#family">Happy Families</a>
-    <a href="#vehicles">Delivery Fleet</a>
-    <a href="#about">About Us</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#faq">FAQ</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#tips">Tips</a>
-    <a href="#blog">Blog</a>
-    <a href="#care">Care Info</a>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Elite Paws & Companions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fff6ec;
+  color:#333;
+}
+header{
+  background:linear-gradient(45deg,#ff6a00,#ffb347);
+  color:white;
+  padding:50px 20px;
+  text-align:center;
+}
+header h1{margin:0;font-size:36px}
+nav{
+  position:sticky;
+  top:0;
+  background:#ff6a00;
+  padding:10px;
+  text-align:center;
+  z-index:100;
+}
+nav a{
+  color:white;
+  margin:10px;
+  text-decoration:none;
+  font-weight:bold;
+}
+section{
+  padding:40px 20px;
+  max-width:1200px;
+  margin:auto;
+}
+h2{color:#ff6a00}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+.card{
+  background:white;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  padding:15px;
+}
+.card img{
+  width:100%;
+  border-radius:10px;
+}
+button{
+  background:#ff6a00;
+  color:white;
+  border:none;
+  padding:10px 15px;
+  border-radius:6px;
+  cursor:pointer;
+}
+input,textarea{
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+}
+footer{
+  background:#ff6a00;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+#chatBox{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:white;
+  width:260px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,.3);
+  display:none;
+}
+#chatBox header{
+  background:#ff6a00;
+  color:white;
+  padding:10px;
+  font-size:14px;
+}
+#chatBox div{
+  padding:10px;
+  font-size:13px;
+}
+#chatBtn{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+}
+iframe{border-radius:10px}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Elite Paws & Companions</h1>
+<p>Premium Puppies • Loving Families • Safe Global Delivery</p>
+</header>
 
 <nav>
 <a href="#puppies">Puppies</a>
-<a href="#contact">Contact</a>
+<a href="#reviews">Family Reviews</a>
 <a href="#delivery">Delivery</a>
-<a href="#family">Families</a>
+<a href="#contact">Contact</a>
 </nav>
 
-<div class="container">
-
-<!-- Puppies Gallery -->
 <section id="puppies">
-<h2>Our Dobermans</h2>
-<div class="gallery">
-  <!-- 30 Placeholder Doberman Images -->
-  <script>
-  const dobImages = Array.from({length:30}, (_,i)=>`https://placedog.net/400/300?random=${i+1}`);
-  dobImages.forEach((src,i)=>{
-    document.write(`
-    <div class="card">
-      <img src="${src}" alt=" ${i+1}" style="width:100%; border-radius:8px;">
-      <div class="card-content">
-        <h3>Doberman ${i+1}</h3>
-        <p>Gender: ${i%2===0?'Male':'Female'} | Color: ${i%3===0?'Black & Rust':'Red & Rust'} | Age: ${8+i} Weeks</p>
-        <p class="price">$${1000+ i*50}</p>
-      </div>
-    </div>
-    `);
-  });
-  </script>
-</div>
+<h2>Available Puppies & Dogs</h2>
+<div class="grid" id="puppyGrid"></div>
 </section>
 
-<!-- Contact Section -->
-<section id="contact">
-<h2>Contact Us</h2>
-<p>Email: nickpatrick887@gmail.com</p>
-<p>WhatsApp Only: (365) 907-3536</p>
+<section id="reviews">
+<h2>Happy Families</h2>
+<div class="grid" id="familyGrid"></div>
 </section>
 
-<!-- Delivery & Tracking Section -->
 <section id="delivery">
 <h2>Delivery & Tracking</h2>
 
-<form id="deliveryForm">
-<label>Name:</label>
-<input type="text" id="delName" placeholder="Your Name" required>
-<label>Email:</label>
-<input type="email" id="delEmail" placeholder="Your Email" required>
-<label>Doberman / Dog:</label>
-<input type="text" id="delDog" placeholder="Dog Name/ID" required>
-<label>Delivery Address:</label>
-<textarea id="delAddress" placeholder="Full Address" required></textarea>
-<label>Your Current Location:</label>
-<input type="text" id="delLocation" placeholder="City, State" required>
-<button type="button" onclick="createTracking()">Request Delivery</button>
-</form>
-
-<p id="trackingCodeDisplay"></p>
+<h3>Create Tracking</h3>
+<input id="clientName" placeholder="Client Name">
+<input id="dogName" placeholder="Dog Name">
+<textarea id="address" placeholder="Delivery Address"></textarea>
+<button onclick="createTracking()">Generate Tracking Code</button>
+<p id="trackingCode"></p>
 
 <h3>Track Your Package</h3>
-<input type="text" id="trackInput" placeholder="Enter Tracking Code">
-<button type="button" onclick="trackPackage()">Track</button>
+<input id="trackInput" placeholder="Enter Tracking Code">
+<button onclick="trackPackage()">Track</button>
 <p id="trackResult"></p>
 
-<!-- Google Maps Placeholder -->
-<h3>Delivery Map</h3>
-<iframe id="mapFrame" src="https://maps.google.com/maps?q=New%20York&t=&z=5&ie=UTF8&iwloc=&output=embed"></iframe>
+<h3>Delivery Vehicles</h3>
+<div class="grid" id="vehicleGrid"></div>
+
+<h3>Live Delivery Map</h3>
+<iframe
+  width="100%"
+  height="300"
+  src="https://www.openstreetmap.org/export/embed.html?bbox=-20,-40,60,40&layer=mapnik">
+</iframe>
 </section>
 
-<!-- Happy Families -->
-<section id="family">
-<h2>Reviews ⭐⭐⭐⭐⭐</h2>
-<div class="gallery">
-<script>
-const famImages = Array.from({length:10}, (_,i)=>`https://placedog.net/400/300?random=${i+101}`);
-famImages.forEach((src,i)=>{
-  document.write(`
-  <div class="card">
-    <img src="${src}" alt="Family ${i+1}" style="width:100%; border-radius:8px;">
-    <div class="card-content">
-      <h3>Family ${i+1}</h3>
-      <p>We delivered our beautiful Doberman puppy to this happy family. They are thrilled and the dog is loving its new home!</p>
-    </div>
-  </div>
-  `);
-});
-</script>
-</div>
+<section id="contact">
+<h2>Contact Us</h2>
+<p>Email: contact@elitepawscompanions.com</p>
+<p>WhatsApp: +123 456 789</p>
 </section>
-
-<!-- Delivery Fleet -->
-<section id="vehicles">
-<h2>Our Delivery Fleet</h2>
-<div class="gallery">
-<script>
-const vehicleImages = [
-'https://images.pexels.com/photos/3807946/pexels-photo-3807946.jpeg',
-'https://images.pexels.com/photos/1904733/pexels-photo-1904733.jpeg',
-'https://images.pexels.com/photos/54519/pexels-photo-54519.jpeg',
-'https://images.pexels.com/photos/3807970/pexels-photo-3807970.jpeg',
-'https://images.pexels.com/photos/280618/pexels-photo-280618.jpeg',
-'https://images.pexels.com/photos/46148/pexels-photo-46148.jpeg',
-'https://images.pexels.com/photos/238621/pexels-photo-238621.jpeg',
-'https://images.pexels.com/photos/97035/pexels-photo-97035.jpeg',
-'https://images.pexels.com/photos/35807/pexels-photo.jpg',
-'https://images.pexels.com/photos/34852/pexels-photo.jpg'
-];
-vehicleImages.forEach((src,i)=>{
-  document.write(`
-  <div class="card">
-    <img src="${src}" alt="Vehicle ${i+1}" style="width:100%; border-radius:8px;">
-    <div class="card-content">
-      <h3>Delivery Vehicle ${i+1}</h3>
-      <p>Our delivery vehicle ensures the safe and comfortable transport of Dobermans to their new families.</p>
-    </div>
-  </div>
-  `);
-});
-</script>
-</div>
-</section>
-
-</div>
-
-<!-- Floating Buttons -->
-<div class="floating-btn">
-<a href="https://wa.me/13659073536" target="_blank">WhatsApp</a>
-<a href="mailto:nickpatrick887@gmail.com" class="email-btn">Email</a>
-<a href="#" class="chat-btn" onclick="openChat()">Chat AI</a>
-</div>
-
-<!-- Chat Popup -->
-<div class="chat-popup" id="chatForm">
-<div class="chat-header">Elite Spaws Assistant</div>
-<div class="chat-body">
-<div class="chat-messages" id="chatMessages"></div>
-<input type="text" id="userInput" placeholder="Type a message...">
-<button onclick="sendChat()">Send</button>
-</div>
-</div>
 
 <footer>
-<p>© 2018 Elite Spaws & Companion. All rights reserved.</p>
+© 2026 Elite Paws & Companions — Trusted Puppy Delivery Worldwide
 </footer>
 
+<button id="chatBtn" onclick="toggleChat()">AI Help</button>
+
+<div id="chatBox">
+<header>Elite Paws AI Assistant</header>
+<div>
+<p><b>Q:</b> Do you deliver internationally?</p>
+<p><b>A:</b> Yes, we offer safe worldwide delivery.</p>
+<p><b>Q:</b> Are puppies vaccinated?</p>
+<p><b>A:</b> All puppies are fully vaccinated.</p>
+<p><b>Q:</b> How long does delivery take?</p>
+<p><b>A:</b> 2–7 days depending on location.</p>
+</div>
+</div>
+
 <script>
-// 3-dot Menu
-function toggleMenu() {
-  const menu = document.getElementById("menuContent");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
+const puppies=[
+{name:"Max",breed:"Doberman",img:"https://place-puppy.com/300x300",desc:"Max is a strong, loyal Doberman raised with love. Intelligent, alert, and family-friendly."},
+{name:"Bella",breed:"Golden Retriever",img:"https://place-puppy.com/301x301",desc:"Bella is gentle, loving, and perfect with children."},
+{name:"Rocky",breed:"German Shepherd",img:"https://place-puppy.com/302x302",desc:"Rocky is confident, obedient, and protective."},
+{name:"Luna",breed:"Husky",img:"https://place-puppy.com/303x303",desc:"Luna is energetic, playful, and adventurous."},
+{name:"Duke",breed:"Rottweiler",img:"https://place-puppy.com/304x304",desc:"Duke is calm, powerful, and loyal."},
+{name:"Coco",breed:"Poodle",img:"https://place-puppy.com/305x305",desc:"Coco is smart, stylish, and hypoallergenic."},
+{name:"Zeus",breed:"Doberman",img:"https://place-puppy.com/306x306",desc:"Zeus is elegant and extremely intelligent."},
+{name:"Milo",breed:"Beagle",img:"https://place-puppy.com/307x307",desc:"Milo is curious and friendly."},
+{name:"Nova",breed:"Husky",img:"https://place-puppy.com/308x308",desc:"Nova loves snow and adventures."},
+{name:"Bruno",breed:"Boxer",img:"https://place-puppy.com/309x309",desc:"Bruno is playful and affectionate."}
+];
+
+const families=[
+"https://placekitten.com/300/300",
+"https://placekitten.com/301/301",
+"https://placekitten.com/302/302",
+"https://placekitten.com/303/303",
+"https://placekitten.com/304/304",
+"https://placekitten.com/305/305",
+"https://placekitten.com/306/306",
+"https://placekitten.com/307/307",
+"https://placekitten.com/308/308",
+"https://placekitten.com/309/309"
+];
+
+const vehicles=[
+"https://placehold.co/300x200?text=Delivery+Truck",
+"https://placehold.co/300x200?text=Cargo+Plane",
+"https://placehold.co/300x200?text=Pet+Van",
+"https://placehold.co/300x200?text=Airport+Cargo",
+"https://placehold.co/300x200?text=Express+Truck"
+];
+
+function shuffle(arr){return arr.sort(()=>Math.random()-0.5)}
+
+function load(){
+shuffle(puppies).forEach(p=>{
+puppyGrid.innerHTML+=`<div class="card"><img src="${p.img}"><h3>${p.name} (${p.breed})</h3><p>${p.desc}</p></div>`;
+});
+shuffle(families).forEach(f=>{
+familyGrid.innerHTML+=`<div class="card"><img src="${f}"><p>“Amazing experience and healthy puppy delivered safely.”</p></div>`;
+});
+shuffle(vehicles).forEach(v=>{
+vehicleGrid.innerHTML+=`<div class="card"><img src="${v}"></div>`;
+});
 }
+load();
 
-// AI Chat Bot
-function openChat() {
-  const chat = document.getElementById("chatForm");
-  chat.style.display = chat.style.display === "block" ? "none" : "block";
+let deliveries={};
+function createTracking(){
+let code="EP-"+Math.random().toString(36).substring(2,8).toUpperCase();
+deliveries[code]="In transit — arriving soon";
+trackingCode.innerHTML="Your Tracking Code: <b>"+code+"</b>";
 }
-
-function sendChat() {
-  const input = document.getElementById("userInput").value.trim();
-  if(!input) return;
-  addMessage(input,'user');
-  document.getElementById("userInput").value = "";
-  setTimeout(() => {
-    const botReply = getBotReply(input.toLowerCase());
-    addMessage(botReply,'bot');
-  },500);
+function trackPackage(){
+let c=trackInput.value.toUpperCase();
+trackResult.innerHTML=deliveries[c]||"Tracking code not found";
 }
-
-function addMessage(text, sender){
-  const chatMessages = document.getElementById("chatMessages");
-  const div = document.createElement("div");
-  div.className = sender === 'user' ? 'user-msg' : 'bot-msg';
-  div.textContent = text;
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function getBotReply(msg){
-  if(msg.includes("hello") || msg.includes("hi")) return "Hello! 👋 Welcome to Elite Spaws & Companion. How can I help you today?";
-  if(msg.includes("price") || msg.includes("cost")) return "Our puppies and Dogs range from $300 to $2500 depending on age, breed and pedigree.";
-  if(msg.includes("puppy") || msg.includes("available")) return "We have both puppies and dogs. You can see the current availability above.";
-  if(msg.includes("contact") || msg.includes("whatsapp") || msg.includes("email")) return "You can contact us via WhatsApp or Email using the floating buttons.";
-  return "Thank you for your message! Our team will contact you shortly.";
-}
-
-// Delivery & Tracking System
-let deliveries = [];
-
-function createTracking() {
-  const name = document.getElementById("delName").value.trim();
-  const email = document.getElementById("delEmail").value.trim();
-  const dog = document.getElementById("delDog").value.trim();
-  const address = document.getElementById("delAddress").value.trim();
-  const location = document.getElementById("delLocation").value.trim();
-  if(!name || !email || !dog || !address || !location){ alert("Please fill all fields."); return; }
-  const code = 'EDW-'+Math.random().toString(36).substring(2,10).toUpperCase();
-  const delivery = { code, name, email, dog, address, location, status: "Processing" };
-  deliveries.push(delivery);
-  document.getElementById("trackingCodeDisplay").innerHTML = `Thank you, ${name}! Your delivery request has been received.<br>Tracking Code: <strong>${code}</strong>`;
-  document.getElementById("deliveryForm").reset();
-}
-
-function trackPackage() {
-  const code = document.getElementById("trackInput").value.trim().toUpperCase();
-  const delivery = deliveries.find(d => d.code === code);
-  if(delivery){
-    document.getElementById("trackResult").innerHTML = `Tracking Code: ${code}<br>Status: ${delivery.status}<br>Dog: ${delivery.dog}<br>Address: ${delivery.address}<br>Current Location: ${delivery.location}`;
-    document.getElementById("mapFrame").src = `https://maps.google.com/maps?q=${encodeURIComponent(delivery.location)}&t=&z=5&ie=UTF8&iwloc=&output=embed`;
-  } else {
-    document.getElementById("trackResult").innerHTML = "Tracking code not found.";
-  }
+function toggleChat(){
+chatBox.style.display=chatBox.style.display==="block"?"none":"block";
 }
 </script>
 
