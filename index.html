@@ -225,10 +225,93 @@ footer {background:#111; color:white; text-align:center; padding:30px;}
 
 <!-- Leaflet.js JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
+  <script>
 // ===== CAROUSEL DATA =====
 const puppies=[{name:"Luna",desc:"Calm and affectionate puppy, loves cuddles and playtime.",url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},{name:"Max",desc:"Energetic and confident puppy, enjoys outdoor activities.",url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{name:"Bella",desc:"Curious and playful, great for families.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},{name:"Rocky",desc:"Strong-spirited and loyal puppy, ideal companion.",url:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b"},{name:"Milo",desc:"Alert and friendly, enjoys learning tricks.",url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},{name:"Daisy",desc:"Gentle and nurturing puppy, loves children.",url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},{name:"Leo",desc:"Confident and patient, enjoys walks and exploration.",url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},{name:"Zara",desc:"Graceful and attentive, adapts well to new environments.",url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},{name:"Shadow",desc:"Calm and observant, perfect indoor companion.",url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},{name:"Nova",desc:"Balanced and family-ready, very friendly.",url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"}];
+// ===== FAMILIES CAROUSEL: People with Dogs & Reviews =====
+const families = [
+  {
+    url:"https://images.pexels.com/photos/4587994/pexels-photo-4587994.jpeg",
+    desc:"The Ramirez family welcomes their new companion, Buddy. The joy on their faces highlights what Elite Paws & Companion is all about — healthy, happy pets in loving homes."
+  },
+  {
+    url:"https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg",
+    desc:"The Johnsons take their dog Luna for a walk in the park. A lifetime of memories begins with a safe and caring introduction."
+  },
+  {
+    url:"https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg",
+    desc:"A young couple and their energetic pup Max explore their neighborhood. Max’s tail never stopped wagging after arrival."
+  },
+  {
+    url:"https://images.pexels.com/photos/4587999/pexels-photo-4587999.jpeg",
+    desc:"Emma and Rex, the dynamic duo. Their bond is pure joy — and Elite Paws & Companion is proud to have made it possible."
+  },
+  {
+    url:"https://images.pexels.com/photos/774866/pexels-photo-774866.jpeg",
+    desc:"A happy family portrait with their rescue dog Daisy. Their story inspires other pet lovers to adopt and cherish every moment."
+  },
+  {
+    url:"https://images.pexels.com/photos/4588001/pexels-photo-4588001.jpeg",
+    desc:"The Nguyen family and their new companion, Zoro. A beautiful beginning with tailored care and professional delivery."
+  },
+  {
+    url:"https://images.pexels.com/photos/4588007/pexels-photo-4588007.jpeg",
+    desc:"Young siblings meet their puppy Shadow for the first time. An unforgettable memory and a lifetime of joy ahead."
+  },
+  {
+    url:"https://images.pexels.com/photos/1798708/pexels-photo-1798708.jpeg",
+    desc:"A stroll in the park with new best friend Leo. Every delivery we make is a new story of happiness."
+  },
+  {
+    url:"https://images.pexels.com/photos/4588011/pexels-photo-4588011.jpeg",
+    desc:"Smiles all around as Nova joins the family. Nothing beats the warmth of a loving home."
+  },
+  {
+    url:"https://images.pexels.com/photos/4588009/pexels-photo-4588009.jpeg",
+    desc:"A proud moment — the Smiths cuddling their newest member. Expert care from start to finish."
+  }
+];
 
-const families=[{url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"},{url:"https://images.unsplash.com/photo-1601979031925-424e53b6caaa"},{url:"https://images.unsplash.com/photo-1525253086316-d0c936c814f8"},{url:"https://images.unsplash.com/photo-1507149833265-60c372daea22"},{url:"https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993"},{url:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"},{url:"https://images.unsplash.com/photo-1601758173926-196dcf5f8f5c"},{url:"https://images.unsplash.com/photo-1558788353-f76d92427f16"},{url:"https://images.unsplash.com/photo-1517849845537-4d257902454a"}];
-
-const vehicles=[{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images.unsplash.com/photo-1592194996308-7b43878e84a6"},{url:"https://images.unsplash.com/photo-1581091012184-2c9f9dc67d86"},{url:"https://images
+// ===== DELIVERY VEHICLES CAROUSEL: Trucks & Vans =====
+const vehicles = [
+  {
+    url:"https://pixabay.com/get/g4c68e6f9d6bca8c5d87977d5b8b1dbed4e5b13fbb6b4f139a9b4f125e6eaf9d15a3d3e67630606e28f9f03cee1b920a2_1280.jpg",
+    desc:"Our sleek delivery trucks are equipped with climate‑controlled interiors to ensure every pet travels comfortably."
+  },
+  {
+    url:"https://pixabay.com/get/g10744736cebd3d4a45f7c3eeb9e3bc4921a27d40d94013f3293cfcf6a42878a699ba16f20ea9c3d5a2e469aee5cab76f_1280.jpg",
+    desc:"A dependable delivery van on the highway, designed for secure transport and efficient pet relocation."
+  },
+  {
+    url:"https://pixabay.com/get/g0d7eb8bb5aafc53d7fa08ed3f4f9402c51cb9728ccee7f19157e6df48ec6f1081e65efc7a65d5f8e081783a6673b14c1_1280.jpg",
+    desc:"Our logistics fleet includes spacious vans for long‑distance travel while keeping pets calm and safe."
+  },
+  {
+    url:"https://pixabay.com/get/g1e0b565659cc3f95e209da8e2e7662bb146fb8b588520b10e1452a8c94c9cdec7f6a22787c8ebe34fb9fcdce2151c8e9_1280.jpg",
+    desc:"High‑roof cargo trucks ready for secure loading and fast transit — ideal for busy delivery routes."
+  },
+  {
+    url:"https://pixabay.com/get/g91c2e06a09e2a6be7dffd069f4f93a946e70f124ca28921b82ab0ab4ceb21c62debe9e92247ee33a15beac1dc4bf4c4d_1280.jpg",
+    desc:"Modern delivery van parked at dispatch — illustrating our commitment to reliable service."
+  },
+  {
+    url:"https://pixabay.com/get/ga9b3f8a1d547d7ef3db6aa6c0a101b9fb1dca2ee8c490d56a77e5e4a1ecdf0f350863377d6ebb49b6bd7f808447c9cab_1280.jpg",
+    desc:"A busy truck on the move, representing our dynamic delivery network across town and beyond."
+  },
+  {
+    url:"https://pixabay.com/get/gfd2bceee4adf5c9af462714a1e2ef2c617a5d075e1400e6438ad183c19103f9085c3857f78be4e0713f73a5ef4e98a6f_1280.jpg",
+    desc:"Reliable transportation van with cargo doors open — ready for secure loading and pet comfort."
+  },
+  {
+    url:"https://pixabay.com/get/gd2c1bcda6c3668d78f29bbee4bbe7b7e5cee7d7f38e61a6999a0ee9e2af0156f7c4c901314b96e079d43b51ba2b9f2629_1280.jpg",
+    desc:"Delivery van cruising through city streets with speed and precision."
+  },
+  {
+    url:"https://pixabay.com/get/g4db370a95a33d0bc5afd69239b5f9b67fab88fca8e8e173ce0ab2c26b0531bf723f44fac99b20fceb3b15798fab58a5e_1280.jpg",
+    desc:"Fleet vehicle ready at dawn — a reliable start to another day of deliveries."
+  },
+  {
+    url:"https://pixabay.com/get/g576a9d634c097a0d71aad30dbb4c4aa8f0c4d2eebbf244c21f1a28bb1d8e723f2a2ed907d1470f487bd2f9df80117250a_1280.jpg",
+    desc:"Large cargo truck symbolizing our ability to handle orders of all sizes."
+  }
+];
