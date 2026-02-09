@@ -291,9 +291,81 @@ map.fitBounds(route.getBounds());
 }
 
 /* AI */
-function askAI(){
-answer.innerText="We provide secure delivery, tracking, and full support throughout the process.";
+// ===== AI CHAT FUNCTION =====
+const aiResponses = [
+  {
+    keywords: ["where", "puppy", "delivery"],
+    reply: "You can track your puppy using the tracking section above. Enter your details and the map will show the route and estimated delivery time."
+  },
+  {
+    keywords: ["how", "care", "puppy"],
+    reply: "Puppies need proper nutrition, daily playtime, and love. Make sure to follow our care tips and provide a cozy environment."
+  },
+  {
+    keywords: ["price", "cost", "buy"],
+    reply: "Our prices vary depending on the puppy. Please contact us via WhatsApp or email for detailed pricing and availability."
+  },
+  {
+    keywords: ["hours", "support", "help"],
+    reply: "We are available 24/7 via WhatsApp or email. Feel free to reach out anytime for assistance."
+  },
+  {
+    keywords: ["thank", "thanks"],
+    reply: "You're welcome! We’re happy to assist you with your puppy and delivery inquiries."
+  },
+  {
+    keywords: ["hello", "hi", "hey"],
+    reply: "Hello! How can I help you today regarding your puppy or delivery?"
+  }
+];
+
+// Toggle AI Chat visibility
+function toggleAI(){
+  const box = document.getElementById("aiChatBox");
+  box.style.display = box.style.display==="block"?"none":"block";
 }
+
+// Send AI Message
+function sendAIMessage(){
+  const input = document.getElementById("aiInput");
+  const val = input.value.trim();
+  if(!val) return;
+
+  const messages = document.getElementById("aiMessages");
+
+  // User message
+  const userDiv = document.createElement("div");
+  userDiv.className = "ai-message";
+  userDiv.innerText = val;
+  messages.appendChild(userDiv);
+  input.value = "";
+
+  // AI response
+  setTimeout(()=>{
+    const aiDiv = document.createElement("div");
+    aiDiv.className = "ai-message";
+    aiDiv.style.background="#ff9800";
+
+    // Check for keywords in user input
+    const lowerVal = val.toLowerCase();
+    let found = false;
+    for(let i=0;i<aiResponses.length;i++){
+      const resp = aiResponses[i];
+      for(let k=0;k<resp.keywords.length;k++){
+        if(lowerVal.includes(resp.keywords[k])){
+          aiDiv.innerText = resp.reply;
+          found = true;
+          break;
+        }
+      }
+      if(found) break;
+    }
+    if(!found) aiDiv.innerText = "I’m here to help! Please provide more details about your puppy or delivery question.";
+
+    messages.appendChild(aiDiv);
+    messages.scrollTop = messages.scrollHeight;
+  },500);
+  }
 </script>
 
 </body>
